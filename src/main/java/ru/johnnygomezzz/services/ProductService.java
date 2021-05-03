@@ -21,4 +21,16 @@ public class ProductService {
         return productRepository.findById(id);
     }
 
+    public Product save(Product product) {
+        return productRepository.save(product);
+    }
+
+    public void deleteById(Long id) {
+        productRepository.deleteById(id);
+    }
+
+    //максимально осторожно с этим методом!!!
+    public void deleteAll() {
+        productRepository.deleteAll();
+    }
 }
