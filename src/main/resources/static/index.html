@@ -35,13 +35,16 @@
                 <td>{{p.title}}</td>
                 <td>{{p.price}}</td>
                 <td>
-                    <button class="btn btn-success" ng-click="addProductToCart(p.id)">Добавить в корзину</button>
+                    <button class="btn btn-outline-success" ng-click="addProductToCart(p)">Добавить в корзину</button>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
     <br>
+    <div>
+        <h5>Добавить товар</h5>
+    </div>
     <div>
         <form novalidate ng-submit="createNewProduct()">
             <div class="mb-3">
@@ -52,10 +55,11 @@
                 <label for="inputPrice" class="form-label">Цена</label>
                 <input type="number" class="form-control" ng-model="newProduct.price" id="inputPrice" aria-describedby="priceHelp">
             </div>
-            <button type="submit" class="btn btn-primary">Подтвердить</button>
+            <button type="submit" class="btn btn-outline-primary">Подтвердить</button>
         </form>
     </div>
     <p></p>
+    <br>
     <div>
         <div>
             <h5>Корзина</h5>
@@ -75,17 +79,18 @@
                 <td>{{i.title}}</td>
                 <td>{{i.price}}</td>
                 <td>
-                    <button class="btn btn-danger" ng-click="deleteFromCart(p.id)">Удалить из корзины</button>
+                    <button class="btn btn-outline-danger" ng-click="deleteFromCart(p.id)">Удалить из корзины</button>
                 </td>
             </tr>
             </tbody>
         </table>
         <p></p>
-        <button class="btn btn-danger" ng-click="clearCart()">Очистить корзину</button>
+        <button class="btn btn-outline-danger" ng-click="clearCart()">Очистить корзину</button>
     </div>
 
     <p></p>
-    <button class="btn btn-primary" ng-click="init()">Обновить страницу</button>
+    <button class="btn btn-outline-primary" ng-click="init()">Обновить страницу</button>
 </div>
+<br>
 </body>
 </html>

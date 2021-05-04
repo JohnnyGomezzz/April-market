@@ -16,5 +16,21 @@ public class Cart {
         items = new ArrayList<>();
     }
 
+    public void deleteById(Long id) {
+        items.remove(id);
+    }
 
+    public void deleteAll() {
+        items.clear();
+    }
+
+    public void addToCart(Product product) {
+        items.add(product);
+    }
+
+    public void showAll() {
+        for (int i = 0; i < items.size(); i++) {
+            items.get(i);
+        }
+    }
 }

@@ -24,7 +24,11 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
     }
 
     $scope.addProductToCart = function (product) {
-        console.log(product);
+        $http.get(contextPath + '/api/v1/cart/add')
+                    .then(function (response) {
+                        $scope.items = response.data;
+                        $scope.init();
+                    });
     }
 
     $scope.pingProduct = function (productId) {
