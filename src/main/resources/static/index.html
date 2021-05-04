@@ -1,0 +1,91 @@
+<!doctype html>
+
+<html ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <script src="index.js"></script>
+</head>
+
+<body>
+
+<div class="container" ng-controller="indexController">
+    <h1>April Market</h1>
+    <div>
+        <div>
+            <h5>Список товаров</h5>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Наименование</th>
+                <th scope="col">Цена</th>
+                <th scope="col">Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="p in products">
+                <th scope="row">{{p.id}}</th>
+                <td>{{p.title}}</td>
+                <td>{{p.price}}</td>
+                <td>
+                    <button class="btn btn-success" ng-click="addProductToCart(p.id)">Добавить в корзину</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <div>
+        <form novalidate ng-submit="createNewProduct()">
+            <div class="mb-3">
+                <label for="inputTitle" class="form-label">Наименование</label>
+                <input type="text" class="form-control" ng-model="newProduct.title" id="inputTitle" aria-describedby="titleHelp">
+            </div>
+            <div class="mb-3">
+                <label for="inputPrice" class="form-label">Цена</label>
+                <input type="number" class="form-control" ng-model="newProduct.price" id="inputPrice" aria-describedby="priceHelp">
+            </div>
+            <button type="submit" class="btn btn-primary">Подтвердить</button>
+        </form>
+    </div>
+    <p></p>
+    <div>
+        <div>
+            <h5>Корзина</h5>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Наименование</th>
+                <th scope="col">Цена</th>
+                <th scope="col">Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="i in items">
+                <th scope="row">{{i.id}}</th>
+                <td>{{i.title}}</td>
+                <td>{{i.price}}</td>
+                <td>
+                    <button class="btn btn-danger" ng-click="deleteFromCart(p.id)">Удалить из корзины</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p></p>
+        <button class="btn btn-danger" ng-click="clearCart()">Очистить корзину</button>
+    </div>
+
+    <p></p>
+    <button class="btn btn-primary" ng-click="init()">Обновить страницу</button>
+</div>
+</body>
+</html>
