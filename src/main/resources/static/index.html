@@ -35,7 +35,7 @@
                 <td>{{p.title}}</td>
                 <td>{{p.price}}</td>
                 <td>
-                    <button class="btn btn-outline-success" ng-click="addProductToCart(p)">Добавить в корзину</button>
+                    <button class="btn btn-outline-success" ng-click="addProductToCart(p.id)">Добавить в корзину</button>
                 </td>
             </tr>
             </tbody>
@@ -79,7 +79,7 @@
                 <td>{{i.title}}</td>
                 <td>{{i.price}}</td>
                 <td>
-                    <button class="btn btn-outline-danger" ng-click="deleteFromCart(p.id)">Удалить из корзины</button>
+                    <button class="btn btn-outline-danger" ng-click="deleteFromCart(i.id)">Удалить из корзины</button>
                 </td>
             </tr>
             </tbody>

@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.johnnygomezzz.models.Product;
+import ru.johnnygomezzz.services.ProductService;
 import ru.johnnygomezzz.utils.Cart;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/cart")
@@ -14,10 +16,11 @@ import java.util.List;
 @Slf4j
 public class CartController {
     private final Cart cart;
+    private final ProductService productService;
 
     @GetMapping
-    public void showCart() {
-        cart.showAll();
+    public List<Product> showCart() {
+        return cart.showAll();
     }
 
     @GetMapping("/ping")
@@ -26,17 +29,18 @@ public class CartController {
     }
 
     @GetMapping("/add")
-    public void addToCart(@RequestBody Product product) {
-        cart.addToCart(product);
+    public void addToCart(@RequestParam Long id) {
+        Optional<Product> product = productService.findById(id);
+        cart.addToCart(product.get());
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteOneProductById(@PathVariable Long id) {
+    @GetMapping("/delete")
+    public void deleteOneProductById(@RequestParam Long id) {
         cart.deleteById(id);
     }
 
-    @DeleteMapping
-    public void deleteAllProducts() {
+    @GetMapping("/clear")
+    public void clearCart() {
         cart.deleteAll();
     }
 }

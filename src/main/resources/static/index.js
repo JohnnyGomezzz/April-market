@@ -5,6 +5,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         $http.get(contextPath + '/api/v1/products')
             .then(function (response) {
                 $scope.products = response.data;
+                $scope.showCart;
             });
     };
 
@@ -23,12 +24,44 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         console.log(product);
     }
 
-    $scope.addProductToCart = function (product) {
-        $http.get(contextPath + '/api/v1/cart/add')
-                    .then(function (response) {
-                        $scope.items = response.data;
-                        $scope.init();
-                    });
+    $scope.showCart = function () {
+            $http.get(contextPath + '/api/v1/cart')
+                .then(function (response) {
+                    $scope.items = response.data;
+                });
+        };
+
+    $scope.addProductToCart = function (productId) {
+        $http({
+                url: contextPath + '/api/v1/cart/add',
+                method: 'GET',
+                params: {
+                    id: productId
+                }
+            }).then(function (response) {
+                $scope.showCart();
+            });
+    }
+
+    $scope.deleteFromCart = function (productId) {
+            $http({
+                    url: contextPath + '/api/v1/cart/delete',
+                    method: 'GET',
+                    params: {
+                        id: productId
+                    }
+                }).then(function (response) {
+                    $scope.showCart();
+                });
+        }
+
+    $scope.clearCart = function (productId) {
+        $http({
+                url: contextPath + '/api/v1/cart/clear',
+                method: 'GET'
+            }).then(function (response) {
+                $scope.showCart();
+            });
     }
 
     $scope.pingProduct = function (productId) {
@@ -40,7 +73,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
                 temp: 'empty'
             }
         }).then(function (response) {
-            console.log("OK");
+            $scope.init();
         });
     }
 
