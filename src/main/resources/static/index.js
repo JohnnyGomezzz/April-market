@@ -1,12 +1,13 @@
 angular.module('app', []).controller('indexController', function ($scope, $http) {
     const contextPath = 'http://localhost:8189/market';
 
+    $scope.cartSum = 0;
+
     $scope.init = function () {
         $http.get(contextPath + '/api/v1/products')
             .then(function (response) {
                 $scope.products = response.data;
                 $scope.showCart;
-                $scope.cartSum = 0;
             });
     };
 
