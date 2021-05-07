@@ -8,7 +8,6 @@ import ru.johnnygomezzz.services.ProductService;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Data
 @Component

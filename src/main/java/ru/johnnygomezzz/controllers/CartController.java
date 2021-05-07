@@ -3,6 +3,8 @@ package ru.johnnygomezzz.controllers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import ru.johnnygomezzz.dtos.CartDto;
+import ru.johnnygomezzz.dtos.ProductDto;
 import ru.johnnygomezzz.models.Product;
 import ru.johnnygomezzz.services.ProductService;
 import ru.johnnygomezzz.utils.Cart;
@@ -19,8 +21,9 @@ public class CartController {
     private final ProductService productService;
 
     @GetMapping
-    public List<Product> showCart() {
-        return cart.showAll();
+    public List<ProductDto> showCart() {
+        CartDto cartDto=new CartDto(cart);
+        return cartDto.showAll();
     }
 
     @GetMapping("/ping")
