@@ -25,4 +25,8 @@ public class CartDto {
     public List<ProductDto> showAll() {
         return productDtoList;
     }
+
+    public void addToCart(ProductDto productDto) {
+        productDtoList.add(productDto);
+    }
 }
