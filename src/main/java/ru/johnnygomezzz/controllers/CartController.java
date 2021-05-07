@@ -43,4 +43,9 @@ public class CartController {
     public void clearCart() {
         cart.deleteAll();
     }
+
+    @GetMapping("/sum")
+    public int getCartProductsSum() {
+        return cart.getProductsSum();
+    }
 }

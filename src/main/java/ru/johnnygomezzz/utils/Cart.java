@@ -41,4 +41,12 @@ public class Cart {
     public List<Product> showAll() {
         return items;
     }
+
+    public int getProductsSum() {
+        int sum = 0;
+        for (Product item : items) {
+            sum += item.getPrice();
+        }
+        return sum;
+    }
 }

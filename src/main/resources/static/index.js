@@ -6,6 +6,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             .then(function (response) {
                 $scope.products = response.data;
                 $scope.showCart;
+                $scope.cartSum = 0;
             });
     };
 
@@ -28,6 +29,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             $http.get(contextPath + '/api/v1/cart')
                 .then(function (response) {
                     $scope.items = response.data;
+                    $scope.cartProductsSum();
                 });
         };
 
@@ -40,6 +42,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
                 }
             }).then(function (response) {
                 $scope.showCart();
+                $scope.cartSum = response.data;
             });
     }
 
@@ -52,6 +55,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
                     }
                 }).then(function (response) {
                     $scope.showCart();
+                    $scope.cartSum = response.data;
                 });
         }
 
@@ -61,6 +65,16 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
                 method: 'GET'
             }).then(function (response) {
                 $scope.showCart();
+                $scope.cartSum = 0;
+            });
+    }
+
+    $scope.cartProductsSum = function () {
+        $http({
+                url: contextPath + '/api/v1/cart/sum',
+                method: 'GET'
+            }).then(function (response) {
+                $scope.cartSum = response.data;
             });
     }
 
