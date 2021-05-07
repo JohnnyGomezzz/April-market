@@ -18,11 +18,12 @@ import java.util.Optional;
 @Slf4j
 public class CartController {
     private final Cart cart;
+    private CartDto cartDto;
     private final ProductService productService;
 
     @GetMapping
     public List<ProductDto> showCart() {
-        CartDto cartDto=new CartDto(cart);
+        cartDto = new CartDto(cart);
         return cartDto.showAll();
     }
 
