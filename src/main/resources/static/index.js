@@ -3,35 +3,62 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
 
     $scope.cartSum = 0;
 
-    $scope.init = function () {
-        $http.get(contextPath + '/api/v1/products')
-            .then(function (response) {
-                $scope.products = response.data;
-                $scope.showCart;
-            });
+    $scope.loadPage = function (page) {
+        $http({
+            url: contextPath + '/api/v1/products',
+            method: 'GET',
+            params: {
+                p: page
+            }
+        }).then(function (response) {
+            $scope.productsPage = response.data;
+
+            let minPageIndex = page - 2;
+            if (minPageIndex < 1) {
+                minPageIndex = 1;
+            }
+
+            let maxPageIndex = page + 2;
+            if (maxPageIndex > $scope.productsPage.totalPages) {
+                maxPageIndex = $scope.productsPage.totalPages;
+            }
+
+            $scope.paginationArray = $scope.generatePagesIndexes(minPageIndex, maxPageIndex);
+
+            console.log("PAGE FROM BACKEND")
+            console.log($scope.productsPage);
+        });
     };
+
+    $scope.generatePagesIndexes = function (startPage, endPage) {
+        let arr = [];
+        for (let i = startPage; i < endPage + 1; i++) {
+            arr.push(i);
+        }
+        return arr;
+    }
 
     $scope.createNewProduct = function () {
         $http.post(contextPath + '/api/v1/products', $scope.newProduct)
             .then(function successCallback(response) {
-                $scope.init();
+                $scope.loadPage(1);
                 $scope.newProduct = null;
             }, function errorCallback(response) {
                 console.log(response.data);
                 alert('Error: ' + response.data.messages);
             });
-    };
+    }
 
     $scope.clickOnProduct = function (product) {
         console.log(product);
     }
 
     $scope.showCart = function () {
-            $http.get(contextPath + '/api/v1/cart')
-                .then(function (response) {
-                    $scope.items = response.data;
-                    $scope.cartProductsSum();
-                });
+        $http.get(contextPath + '/api/v1/cart')
+            .then(function (response) {
+                $scope.items = response.data;
+                $scope.cartProductsSum();
+            });
         };
 
     $scope.addProductToCart = function (productId) {
@@ -48,17 +75,17 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
     }
 
     $scope.deleteFromCart = function (productId) {
-            $http({
-                    url: contextPath + '/api/v1/cart/delete',
-                    method: 'GET',
-                    params: {
-                        id: productId
-                    }
-                }).then(function (response) {
-                    $scope.showCart();
-                    $scope.cartSum = response.data;
-                });
-        }
+        $http({
+                url: contextPath + '/api/v1/cart/delete',
+                method: 'GET',
+                params: {
+                    id: productId
+                }
+            }).then(function (response) {
+                $scope.showCart();
+                $scope.cartSum = response.data;
+            });
+    }
 
     $scope.clearCart = function (productId) {
         $http({
@@ -88,9 +115,9 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
                 temp: 'empty'
             }
         }).then(function (response) {
-            $scope.init();
+            console.log("OK");
         });
     }
 
-    $scope.init();
+    $scope.loadPage(1);
 });
