@@ -3,6 +3,8 @@ package ru.johnnygomezzz.controllers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import ru.johnnygomezzz.dtos.CartDto;
+import ru.johnnygomezzz.dtos.ProductDto;
 import ru.johnnygomezzz.models.Product;
 import ru.johnnygomezzz.services.ProductService;
 import ru.johnnygomezzz.utils.Cart;
@@ -16,11 +18,13 @@ import java.util.Optional;
 @Slf4j
 public class CartController {
     private final Cart cart;
+    private CartDto cartDto;
     private final ProductService productService;
 
     @GetMapping
-    public List<Product> showCart() {
-        return cart.showAll();
+    public List<ProductDto> showCart() {
+        cartDto = new CartDto(cart);
+        return cartDto.showAll();
     }
 
     @GetMapping("/ping")
@@ -42,5 +46,10 @@ public class CartController {
     @GetMapping("/clear")
     public void clearCart() {
         cart.deleteAll();
+    }
+
+    @GetMapping("/sum")
+    public int getCartProductsSum() {
+        return cart.getProductsSum();
     }
 }

@@ -1,16 +1,19 @@
 package ru.johnnygomezzz.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.johnnygomezzz.error_handling.MarketError;
+import ru.johnnygomezzz.dtos.ProductDto;
+import ru.johnnygomezzz.error_handling.InvalidDataException;
 import ru.johnnygomezzz.error_handling.ResourceNotFoundException;
 import ru.johnnygomezzz.models.Product;
 import ru.johnnygomezzz.services.ProductService;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,13 +22,16 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public List<Product> getAllProducts() {
-        return productService.findAll();
+    public Page<ProductDto> getAllProducts(@RequestParam(name = "p", defaultValue = "1") int page) {
+        Page<Product> productsPage = productService.findPage(page - 1, 10);
+        Page<ProductDto> dtoPage = new PageImpl<>(productsPage.getContent().stream().map(ProductDto::new).collect(Collectors.toList()), productsPage.getPageable(), productsPage.getTotalElements());
+        return dtoPage;
     }
 
     @GetMapping("/{id}")
-    public Product getOneProductById(@PathVariable Long id) {
-        return productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product doesn't exists: " + id));
+    public ProductDto getOneProductById(@PathVariable Long id) {
+        Product product = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product doesn't exists id: " + id));
+        return new ProductDto(product);
     }
 
     @DeleteMapping("/{id}")
@@ -33,30 +39,17 @@ public class ProductController {
         productService.deleteById(id);
     }
 
-    //на свой страх и риск!!!
-    @DeleteMapping
-    public void deleteAllProducts() {
-        productService.deleteAll();
-    }
-
     @PostMapping
-    public ResponseEntity<?> createNewProduct(@RequestBody Product product) {
-        List<String> errors = new ArrayList<>();
-        if (product.getTitle().length() < 3) {
-            errors.add("Too short title");
+    public ProductDto createNewProduct(@RequestBody @Validated ProductDto productDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new InvalidDataException(bindingResult.getAllErrors().stream().map(ObjectError::getDefaultMessage)
+                    .collect(Collectors.toList()));
         }
-        if (product.getPrice() < 1) {
-            errors.add("Invalid product price");
-        }
-        if (errors.size() > 0) {
-            return new ResponseEntity<>(new MarketError(HttpStatus.BAD_REQUEST.value(), errors), HttpStatus.BAD_REQUEST);
-        }
-        Product out = productService.save(product);
-        return new ResponseEntity<>(out, HttpStatus.CREATED);
+        return productService.createNewProduct(productDto);
     }
 
     @PutMapping
-    public Product modifyProduct(@RequestBody Product product) {
-        return productService.save(product);
+    public ProductDto updateProduct(@RequestBody ProductDto productDto) {
+        return productService.updateProduct(productDto);
     }
 }
