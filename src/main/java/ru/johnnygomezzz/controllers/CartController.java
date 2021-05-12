@@ -36,6 +36,11 @@ public class CartController {
         cart.deleteById(id);
     }
 
+    @GetMapping("/deleteall")
+    public void deleteAllProductsById(@RequestParam Long id) {
+        cart.deleteAllById(id);
+    }
+
     @GetMapping("/clear")
     public void clearCart() {
         cart.deleteAll();

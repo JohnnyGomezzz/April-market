@@ -10,6 +10,7 @@ import ru.johnnygomezzz.services.ProductService;
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -27,11 +28,24 @@ public class Cart {
     public void deleteById(Long id) {
         for (OrderItem orderItem : items) {
             if (orderItem.getProduct().getId().equals(id)) {
-                items.remove(orderItem);
-                break;
+                orderItem.decrementQuantity();
+                if (orderItem.getQuantity() == 0) {
+                    deleteAllById(id);
+                }
+                recalculate();
+                return;
             }
         }
-        recalculate();
+    }
+
+    public void deleteAllById(Long id) {
+        for (OrderItem orderItem : items) {
+            if (orderItem.getProduct().getId().equals(id)) {
+                items.remove(orderItem);
+                recalculate();
+                return;
+            }
+        }
     }
 
     public void deleteAll() {
@@ -58,5 +72,9 @@ public class Cart {
         for (OrderItem oi : items) {
             sum = sum.add(oi.getPrice());
         }
+    }
+
+    public List<OrderItem> getItems() {
+        return Collections.unmodifiableList(items);
     }
 }

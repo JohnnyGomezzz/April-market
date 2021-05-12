@@ -79,6 +79,18 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         });
     }
 
+    $scope.deleteProductFromCart = function (productId) {
+        $http({
+            url: contextPath + '/api/v1/cart/deleteall',
+            method: 'GET',
+            params: {
+                id: productId
+            }
+        }).then(function (response) {
+            $scope.showCart();
+        });
+    }
+
     $scope.clearCart = function () {
         $http({
             url: contextPath + '/api/v1/cart/clear',
