@@ -6,6 +6,7 @@ import ru.johnnygomezzz.models.Product;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +17,7 @@ public class ProductDto {
     private String title;
 
     @Min(value = 1, message = "Min price = 1")
-    private int price;
+    private BigDecimal price;
 
     private String categoryTitle;
 

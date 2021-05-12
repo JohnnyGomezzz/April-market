@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import ru.johnnygomezzz.models.Product;
 import ru.johnnygomezzz.utils.Cart;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class CartDto {
     private List<ProductDto> items;
-    private int sum;
+    private BigDecimal sum;
 
     public CartDto(Cart cart) {
         List<ProductDto> list = new ArrayList<>();

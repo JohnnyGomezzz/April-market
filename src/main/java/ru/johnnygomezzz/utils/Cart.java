@@ -6,6 +6,7 @@ import ru.johnnygomezzz.models.Product;
 import ru.johnnygomezzz.services.ProductService;
 
 import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 public class Cart {
     private List<Product> items;
     private ProductService productService;
-    private int sum;
+    private BigDecimal sum;
 
     @PostConstruct
     public void init() {
@@ -46,9 +47,9 @@ public class Cart {
     }
 
     private void recalculate() {
-        sum = 0;
+        sum = BigDecimal.ZERO;
         for (Product item : items) {
-            sum += item.getPrice();
+            sum = sum.add(item.getPrice());
         }
     }
 }
