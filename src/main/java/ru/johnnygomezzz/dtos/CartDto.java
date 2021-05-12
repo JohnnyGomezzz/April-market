@@ -11,7 +11,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class CartDto {
-    private List<ProductDto> productDtoList;
+    private List<ProductDto> items;
+    private int sum;
 
     public CartDto(Cart cart) {
         List<ProductDto> list = new ArrayList<>();
@@ -19,14 +20,7 @@ public class CartDto {
             ProductDto productDto = new ProductDto(product);
             list.add(productDto);
         }
-        this.productDtoList = list;
-    }
-
-    public List<ProductDto> showAll() {
-        return productDtoList;
-    }
-
-    public void addToCart(ProductDto productDto) {
-        productDtoList.add(productDto);
+        this.items = list;
+        this.sum = cart.getSum();
     }
 }

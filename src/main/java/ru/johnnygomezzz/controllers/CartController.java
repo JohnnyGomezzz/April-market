@@ -18,22 +18,15 @@ import java.util.Optional;
 @Slf4j
 public class CartController {
     private final Cart cart;
-    private CartDto cartDto;
     private final ProductService productService;
 
     @GetMapping
-    public List<ProductDto> showCart() {
-        cartDto = new CartDto(cart);
-        return cartDto.showAll();
+    public CartDto getCart() {
+        return new CartDto(cart);
     }
 
-    @GetMapping("/ping")
-    public void ping(@RequestParam Long id) {
-        log.info("ping: " + id);
-    }
-
-    @GetMapping("/add")
-    public void addToCart(@RequestParam Long id) {
+    @GetMapping("/add/{productId}")
+    public void addToCart(@PathVariable(name = "productId") Long id) {
         Optional<Product> product = productService.findById(id);
         cart.addToCart(product.get());
     }
@@ -46,10 +39,5 @@ public class CartController {
     @GetMapping("/clear")
     public void clearCart() {
         cart.deleteAll();
-    }
-
-    @GetMapping("/sum")
-    public int getCartProductsSum() {
-        return cart.getProductsSum();
     }
 }

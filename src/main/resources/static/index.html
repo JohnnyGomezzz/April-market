@@ -101,7 +101,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="i in items">
+            <tr ng-repeat="i in cartDto.items">
                 <th scope="row">{{i.id}}</th>
                 <td>{{i.title}}</td>
                 <td>{{i.categoryTitle}}</td>
@@ -112,7 +112,7 @@
             </tr>
             <tr>
                 <th scope="row" colspan="3">Стоимость товаров в корзине</th>
-                <th scope="row">{{cartSum}}</th>
+                <th scope="row">{{cartDto.sum}}</th>
                 <td></td>
             </tr>
             </tbody>
@@ -120,9 +120,6 @@
         <p></p>
         <button class="btn btn-outline-danger" ng-click="clearCart()">Очистить корзину</button>
     </div>
-
-    <p></p>
-    <button class="btn btn-outline-primary" ng-click="loadPage(1)">Обновить страницу</button>
 </div>
 <br>
 </body>

@@ -14,6 +14,7 @@ import java.util.List;
 public class Cart {
     private List<Product> items;
     private ProductService productService;
+    private int sum;
 
     @PostConstruct
     public void init() {
@@ -27,25 +28,27 @@ public class Cart {
                 break;
             }
         }
+        recalculate();
     }
 
     public void deleteAll() {
         items.clear();
+        recalculate();
     }
 
     public void addToCart(Product product) {
         items.add(product);
+        recalculate();
     }
 
     public List<Product> showAll() {
         return items;
     }
 
-    public int getProductsSum() {
-        int sum = 0;
+    private void recalculate() {
+        sum = 0;
         for (Product item : items) {
             sum += item.getPrice();
         }
-        return sum;
     }
 }
