@@ -93,25 +93,21 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Id</th>
                 <th scope="col">Наименование</th>
-                <th scope="col">Категория</th>
                 <th scope="col">Цена</th>
                 <th scope="col">Действия</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="i in cartDto.items">
-                <th scope="row">{{i.id}}</th>
                 <td>{{i.title}}</td>
-                <td>{{i.categoryTitle}}</td>
                 <td>{{i.price}}</td>
                 <td>
                     <button class="btn btn-outline-danger" ng-click="deleteFromCart(i.id)">Удалить из корзины</button>
                 </td>
             </tr>
             <tr>
-                <th scope="row" colspan="3">Стоимость товаров в корзине</th>
+                <th scope="row">Стоимость товаров в корзине</th>
                 <th scope="row">{{cartDto.sum}}</th>
                 <td></td>
             </tr>
