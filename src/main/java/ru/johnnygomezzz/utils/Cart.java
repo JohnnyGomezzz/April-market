@@ -2,6 +2,8 @@ package ru.johnnygomezzz.utils;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
+import ru.johnnygomezzz.error_handling.ResourceNotFoundException;
+import ru.johnnygomezzz.models.OrderItem;
 import ru.johnnygomezzz.models.Product;
 import ru.johnnygomezzz.services.ProductService;
 
@@ -13,8 +15,8 @@ import java.util.List;
 @Data
 @Component
 public class Cart {
-    private List<Product> items;
-    private ProductService productService;
+    private List<OrderItem> items;
+    private final ProductService productService;
     private BigDecimal sum;
 
     @PostConstruct
@@ -23,9 +25,9 @@ public class Cart {
     }
 
     public void deleteById(Long id) {
-        for (Product item : items) {
-            if (item.getId().equals(id)) {
-                items.remove(item);
+        for (OrderItem orderItem : items) {
+            if (orderItem.getProduct().getId().equals(id)) {
+                items.remove(orderItem);
                 break;
             }
         }
@@ -37,19 +39,24 @@ public class Cart {
         recalculate();
     }
 
-    public void addToCart(Product product) {
-        items.add(product);
-        recalculate();
-    }
+    public void addToCart(Long id) {
+        for (OrderItem orderItem : items) {
+            if (orderItem.getProduct().getId().equals(id)) {
+                orderItem.incrementQuantity();
+                recalculate();
+                return;
+            }
+        }
 
-    public List<Product> showAll() {
-        return items;
+        Product product = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product doesn't exists id: " + id + " (add to cart)"));
+        items.add(new OrderItem(product));
+        recalculate();
     }
 
     private void recalculate() {
         sum = BigDecimal.ZERO;
-        for (Product item : items) {
-            sum = sum.add(item.getPrice());
+        for (OrderItem oi : items) {
+            sum = sum.add(oi.getPrice());
         }
     }
 }
