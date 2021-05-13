@@ -43,7 +43,8 @@ create table categories (
 );
 
 insert into categories (title)
-values ('Продукты питания');
+values
+('Продукты питания');
 
 create table products (
     id              bigserial primary key,
