@@ -1,8 +1,6 @@
 angular.module('app', ['ngStorage']).controller('indexController', function ($scope, $http, $location, $localStorage) {
     const contextPath = 'http://localhost:8189/market';
 
-    $scope.cartSum = 0;
-
     $scope.loadPage = function (page) {
         $http({
             url: contextPath + '/api/v1/products',
@@ -55,6 +53,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
             method: 'GET'
         }).then(function (response) {
             $scope.cartDto = response.data;
+            $scope.cartSum = 0;
         });
     };
 
@@ -99,6 +98,16 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
             $scope.showCart();
         });
     }
+
+    $scope.placeOrder = function () {
+            $http({
+                url: contextPath + '/api/v1/order/place',
+                method: 'GET'
+            }).then(function (response) {
+            alert('Заказ успешно оформлен');
+                $scope.clearCart();
+            });
+        }
 
     $scope.tryToAuth = function () {
         $http.post(contextPath + '/auth', $scope.user)
