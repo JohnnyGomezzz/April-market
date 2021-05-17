@@ -101,13 +101,22 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
     $scope.placeOrder = function () {
             $http({
-                url: contextPath + '/api/v1/order/place',
+                url: contextPath + '/api/v1/orders/place',
                 method: 'GET'
             }).then(function (response) {
             alert('Заказ успешно оформлен');
-                $scope.clearCart();
+                $scope.showOrders();
             });
         }
+
+    $scope.showOrders = function (page) {
+        $http({
+            url: '/market/api/v1/orders',
+            method: 'GET'
+        }).then(function (response) {
+            $scope.orderDto = response.data;
+        });
+    };
 
     $scope.tryToAuth = function () {
         $http.post(contextPath + '/auth', $scope.user)

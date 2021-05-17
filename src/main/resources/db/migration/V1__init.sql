@@ -92,3 +92,11 @@ create table order_items (
     created_at          timestamp default current_timestamp,
     updated_at          timestamp default current_timestamp
 );
+
+create table orders (
+    id                  bigserial primary key,
+    quantity            int,
+    price               numeric (8, 2),
+    created_at          timestamp default current_timestamp,
+    updated_at          timestamp default current_timestamp
+);
