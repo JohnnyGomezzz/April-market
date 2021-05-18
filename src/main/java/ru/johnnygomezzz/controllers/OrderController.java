@@ -6,7 +6,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.johnnygomezzz.dtos.OrderDto;
-import ru.johnnygomezzz.dtos.ProductDto;
 import ru.johnnygomezzz.error_handling.InvalidDataException;
 import ru.johnnygomezzz.models.Order;
 import ru.johnnygomezzz.services.OrderService;

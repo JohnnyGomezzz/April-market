@@ -3,11 +3,8 @@ package ru.johnnygomezzz.dtos;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.johnnygomezzz.models.Order;
-import ru.johnnygomezzz.models.OrderItem;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor

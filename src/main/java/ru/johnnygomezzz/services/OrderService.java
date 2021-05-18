@@ -3,10 +3,8 @@ package ru.johnnygomezzz.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.johnnygomezzz.dtos.CartDto;
 import ru.johnnygomezzz.dtos.OrderDto;
 import ru.johnnygomezzz.models.Order;
-import ru.johnnygomezzz.models.OrderItem;
 import ru.johnnygomezzz.repositories.OrderRepository;
 
 import java.util.List;
