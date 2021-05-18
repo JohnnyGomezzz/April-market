@@ -77,4 +77,12 @@ public class Cart {
     public List<OrderItem> getItems() {
         return Collections.unmodifiableList(items);
     }
+
+    public int getTotalQuantity() {
+        int totalQuantity = 0;
+        for (OrderItem oi : items) {
+            totalQuantity += oi.getQuantity();
+        }
+        return totalQuantity;
+    }
 }

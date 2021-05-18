@@ -114,7 +114,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
             url: '/market/api/v1/orders',
             method: 'GET'
         }).then(function (response) {
-            $scope.order = response.data;
+            $scope.orderDto = response.data;
         });
     };
 

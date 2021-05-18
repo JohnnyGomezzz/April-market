@@ -1,11 +1,18 @@
 package ru.johnnygomezzz.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.johnnygomezzz.dtos.OrderDto;
+import ru.johnnygomezzz.dtos.ProductDto;
+import ru.johnnygomezzz.error_handling.InvalidDataException;
 import ru.johnnygomezzz.models.Order;
 import ru.johnnygomezzz.services.OrderService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,7 +27,11 @@ public class OrderController {
     }
 
     @GetMapping("/place")
-    public Order placeOrder(Order order) {
-        return orderService.createNewOrder(order);
+    public OrderDto placeOrder(@RequestBody @Validated OrderDto orderDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new InvalidDataException(bindingResult.getAllErrors().stream().map(ObjectError::getDefaultMessage)
+                    .collect(Collectors.toList()));
+        }
+        return orderService.createNewOrder(orderDto);
     }
 }
