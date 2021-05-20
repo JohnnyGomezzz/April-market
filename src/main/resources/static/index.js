@@ -36,16 +36,16 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         return arr;
     }
 
-    $scope.createNewProduct = function () {
-        $http.post(contextPath + '/api/v1/products', $scope.newProduct)
-            .then(function successCallback(response) {
-                $scope.loadPage(1);
-                $scope.newProduct = null;
-            }, function errorCallback(response) {
-                console.log(response.data);
-                alert('Error: ' + response.data.messages);
-            });
-    }
+//    $scope.createNewProduct = function () {
+//        $http.post(contextPath + '/api/v1/products', $scope.newProduct)
+//            .then(function successCallback(response) {
+//                $scope.loadPage(1);
+//                $scope.newProduct = null;
+//            }, function errorCallback(response) {
+//                console.log(response.data);
+//                alert('Error: ' + response.data.messages);
+//            });
+//    }
 
     $scope.showCart = function (page) {
         $http({
@@ -99,24 +99,25 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         });
     }
 
+    $scope.showOrders = function () {
+        $http({
+            url: contextPath + '/api/v1/orders',
+            method: 'GET'
+        }).then(function (response) {
+            $scope.myOrders = response.data;
+        });
+    };
+
     $scope.placeOrder = function () {
             $http({
-                url: contextPath + '/api/v1/orders/place',
-                method: 'GET'
+                url: contextPath + '/api/v1/orders',
+                method: 'POST'
             }).then(function (response) {
             alert('Заказ успешно оформлен');
                 $scope.showOrders();
+                $scope.showCart();
             });
         }
-
-    $scope.showOrders = function (page) {
-        $http({
-            url: '/market/api/v1/orders',
-            method: 'GET'
-        }).then(function (response) {
-            $scope.orderDto = response.data;
-        });
-    };
 
     $scope.tryToAuth = function () {
         $http.post(contextPath + '/auth', $scope.user)
@@ -160,6 +161,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
     if ($localStorage.aprilMarketCurrentUser) {
         $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.aprilMarketCurrentUser.token;
+        $scope.showOrders();
     }
 
     $scope.loadPage(1);

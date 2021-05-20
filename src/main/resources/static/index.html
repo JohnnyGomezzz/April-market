@@ -174,15 +174,15 @@
             <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Количество товаров</th>
+                <th scope="col">Описание</th>
                 <th scope="col">Цена</th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="o in orders">
-                <th scope="row">{{o.id}}</th>
-                <td>{{o.quantity}}</td>
-                <td>{{o.price}}</td>
+            <tr ng-repeat="order in myOrders">
+                <th scope="row">{{order.id}}</th>
+                <td>{{order.description}}</td>
+                <td>{{order.price}}</td>
             </tr>
             </tbody>
         </table>

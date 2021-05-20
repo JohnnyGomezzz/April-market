@@ -8,8 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import ru.johnnygomezzz.dtos.OrderDto;
 import ru.johnnygomezzz.error_handling.InvalidDataException;
 import ru.johnnygomezzz.models.Order;
+import ru.johnnygomezzz.models.User;
 import ru.johnnygomezzz.services.OrderService;
+import ru.johnnygomezzz.services.UserService;
 
+import javax.transaction.Transactional;
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,19 +22,18 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/orders")
 public class OrderController {
     private final OrderService orderService;
+    private final UserService userService;
 
     @GetMapping
-    public List<Order> getAllOrders() {
-        List<Order> orders = orderService.findAll();
-        return orders;
+    @Transactional
+    public List<OrderDto> getAllOrdersForCurrentUser(Principal principal) {
+        User user = userService.findByUsername(principal.getName()).get();
+        return orderService.findAllByUser(user).stream().map(OrderDto::new).collect(Collectors.toList());
     }
 
-    @GetMapping("/place")
-    public OrderDto placeOrder(@RequestBody @Validated OrderDto orderDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            throw new InvalidDataException(bindingResult.getAllErrors().stream().map(ObjectError::getDefaultMessage)
-                    .collect(Collectors.toList()));
-        }
-        return orderService.createNewOrder(orderDto);
+    @PostMapping()
+    public void createNewOrder(Principal principal) {
+        User user = userService.findByUsername(principal.getName()).get();
+        orderService.createOrderForCurrentUser(user);
     }
 }

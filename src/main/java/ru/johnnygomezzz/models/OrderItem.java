@@ -33,6 +33,10 @@ public class OrderItem {
     @Column(name = "price")
     private BigDecimal price;
 
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
     @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;

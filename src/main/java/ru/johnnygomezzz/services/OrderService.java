@@ -2,10 +2,11 @@ package ru.johnnygomezzz.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import ru.johnnygomezzz.dtos.OrderDto;
 import ru.johnnygomezzz.models.Order;
+import ru.johnnygomezzz.models.OrderItem;
+import ru.johnnygomezzz.models.User;
 import ru.johnnygomezzz.repositories.OrderRepository;
+import ru.johnnygomezzz.utils.Cart;
 
 import java.util.List;
 
@@ -13,22 +14,24 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
+    private final Cart cart;
 
-    @Transactional
-    public OrderDto createNewOrder(OrderDto orderDto) {
+    public List<Order> findAllByUser(User user) {
+        return orderRepository.findAllByUser(user);
+    }
+
+    public Order createOrderForCurrentUser(User user) {
         Order order = new Order();
-        order.setQuantity(orderDto.getQuantity());
-        order.setPrice(orderDto.getPrice());
-        orderRepository.save(order);
-        return new OrderDto(order);
-    }
-
-    public List<Order> findAll() {
-        return orderRepository.findAll();
-    }
-
-    public void deleteById(Long id) {
-        orderRepository.deleteById(id);
+        order.setUser(user);
+        order.setPrice(cart.getSum());
+        // todo распутать этот кусок
+        order.setItems(cart.getItems());
+        for (OrderItem oi : cart.getItems()) {
+            oi.setOrder(order);
+        }
+        order = orderRepository.save(order);
+        cart.deleteAll();
+        return order;
     }
 }
 
