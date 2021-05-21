@@ -128,6 +128,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
                     $scope.user.username = null;
                     $scope.user.password = null;
+                    $scope.showOrders();
                 }
             }, function errorCallback(response) {
             });

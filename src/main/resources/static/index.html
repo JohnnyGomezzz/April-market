@@ -17,6 +17,8 @@
 
 <div class="container" ng-controller="indexController">
 
+    <!---------------------------------------------------- Авторизация ------------------------------------------------->
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
@@ -43,9 +45,14 @@
 
                     <button class="btn btn-outline-secondary" ng-click="tryToLogout()">Выйти</button>
                 </li>
+                <li class="nav-item" ng-if="isUserLoggedIn()">
+                    <span ng-if="cartDto.items.length == 0">Корзина пуста</span>
+                </li>
             </ul>
         </div>
     </nav>
+
+    <!---------------------------------------------------- Товары ------------------------------------------------->
 
     <div>
         <div>
@@ -95,6 +102,10 @@
         </nav>
     </div>
     <br>
+
+    <!---------------------------------------------------- Добавление товара ------------------------------------------------->
+
+
 <!--    <div>-->
 <!--        <h5>Добавить товар</h5>-->
 <!--    </div>-->
@@ -119,7 +130,11 @@
 <!--    </div>-->
     <p></p>
     <br>
-    <div>
+
+    <!---------------------------------------------------- Корзина ------------------------------------------------->
+
+
+    <div ng-if="cartDto.items.length > 0">
         <div>
             <h5>Корзина</h5>
         </div>
@@ -166,10 +181,21 @@
             </tr>
             </tbody>
         </table>
+
         <p></p>
         <button class="btn btn-outline-danger" ng-click="clearCart()">Очистить корзину</button>
+    </div>
+
+    <!---------------------------------------------------- Заказы ------------------------------------------------->
+
+    <div>
         <p></p>
         <button class="btn btn-outline-success" ng-click="placeOrder()">Оформить заказ</button>
+        <p></p>
+        <div>
+            <h5>Ваши заказы</h5>
+        </div>
+        <span ng-if="myOrders.length == 0">Вы пока не сделали ни одного заказа</span>
         <table class="table">
             <thead>
             <tr>
@@ -186,6 +212,7 @@
             </tr>
             </tbody>
         </table>
+    </div>
     </div>
 </div>
 <br>
