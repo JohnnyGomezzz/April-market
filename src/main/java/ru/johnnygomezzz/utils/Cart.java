@@ -2,18 +2,23 @@ package ru.johnnygomezzz.utils;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
+import ru.johnnygomezzz.error_handling.ResourceNotFoundException;
+import ru.johnnygomezzz.models.OrderItem;
 import ru.johnnygomezzz.models.Product;
 import ru.johnnygomezzz.services.ProductService;
 
 import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Data
 @Component
 public class Cart {
-    private List<Product> items;
-    private ProductService productService;
+    private List<OrderItem> items;
+    private final ProductService productService;
+    private BigDecimal sum;
 
     @PostConstruct
     public void init() {
@@ -21,31 +26,63 @@ public class Cart {
     }
 
     public void deleteById(Long id) {
-        for (Product item : items) {
-            if (item.getId().equals(id)) {
-                items.remove(item);
-                break;
+        for (OrderItem orderItem : items) {
+            if (orderItem.getProduct().getId().equals(id)) {
+                orderItem.decrementQuantity();
+                if (orderItem.getQuantity() == 0) {
+                    deleteAllById(id);
+                }
+                recalculate();
+                return;
+            }
+        }
+    }
+
+    public void deleteAllById(Long id) {
+        for (OrderItem orderItem : items) {
+            if (orderItem.getProduct().getId().equals(id)) {
+                items.remove(orderItem);
+                recalculate();
+                return;
             }
         }
     }
 
     public void deleteAll() {
         items.clear();
+        recalculate();
     }
 
-    public void addToCart(Product product) {
-        items.add(product);
-    }
-
-    public List<Product> showAll() {
-        return items;
-    }
-
-    public int getProductsSum() {
-        int sum = 0;
-        for (Product item : items) {
-            sum += item.getPrice();
+    public void addToCart(Long id) {
+        for (OrderItem orderItem : items) {
+            if (orderItem.getProduct().getId().equals(id)) {
+                orderItem.incrementQuantity();
+                recalculate();
+                return;
+            }
         }
-        return sum;
+
+        Product product = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product doesn't exists id: " + id + " (add to cart)"));
+        items.add(new OrderItem(product));
+        recalculate();
+    }
+
+    private void recalculate() {
+        sum = BigDecimal.ZERO;
+        for (OrderItem oi : items) {
+            sum = sum.add(oi.getPrice());
+        }
+    }
+
+    public List<OrderItem> getItems() {
+        return Collections.unmodifiableList(items);
+    }
+
+    public int getTotalQuantity() {
+        int totalQuantity = 0;
+        for (OrderItem oi : items) {
+            totalQuantity += oi.getQuantity();
+        }
+        return totalQuantity;
     }
 }
