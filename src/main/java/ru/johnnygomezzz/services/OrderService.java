@@ -16,13 +16,12 @@ import java.util.List;
 public class OrderService {
     private final OrderRepository orderRepository;
     private final Cart cart;
-    private OrderDto orderDto;
 
     public List<Order> findAllByUser(User user) {
         return orderRepository.findAllByUser(user);
     }
 
-    public Order createOrderForCurrentUser(User user) {
+    public Order createOrderForCurrentUser(User user, String address, int phone) {
         Order order = new Order();
         order.setUser(user);
         order.setPrice(cart.getSum());
@@ -31,8 +30,8 @@ public class OrderService {
         for (OrderItem oi : cart.getItems()) {
             oi.setOrder(order);
         }
-        order.setAddress(orderDto.getAddress());
-        order.setPhone(orderDto.getPhone());
+        order.setAddress(address);
+        order.setPhone(phone);
         order = orderRepository.save(order);
         cart.deleteAll();
         return order;

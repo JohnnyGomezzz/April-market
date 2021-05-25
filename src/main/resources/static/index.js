@@ -108,19 +108,28 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         });
     };
 
-    $scope.placeOrder = function (address, phone) {
-            $http({
-                url: contextPath + '/api/v1/orders',
-                method: 'POST',
-                params: {
-                    address: address,
-                    phone: phone
-                }
-            }).then(function (response) {
+    $scope.placeOrder = function () {
+        $http.post(contextPath + '/api/v1/orders', $scope.newOrder)
+            .then(function successCallback(response) {
+                $scope.newOrder = null;
                 $scope.showOrders();
                 $scope.showCart();
+            }, function errorCallback(response) {
+                console.log(response.data);
+                alert('Error: ' + response.data.messages);
             });
-        }
+    };
+
+
+//    $scope.placeOrder = function () {
+//            $http({
+//                url: contextPath + '/api/v1/orders',
+//                method: 'POST'
+//            }).then(function (response) {
+//                $scope.showOrders();
+//                $scope.showCart();
+//            });
+//        }
 
     $scope.tryToAuth = function () {
         $http.post(contextPath + '/auth', $scope.user)

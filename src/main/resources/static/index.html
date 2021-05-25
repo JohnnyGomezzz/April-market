@@ -216,12 +216,12 @@
 
         <form novalidate ng-submit="placeOrder()" ng-if="cartDto.items.length > 0">
             <div class="mb-3">
-                <label for="inputAddress" class="form-label">Адрес доставки</label>
-                <input type="text" class="form-control" ng-model="address" id="inputAddress" aria-describedby="AddressHelp">
+                <label for="address" class="form-label">Адрес доставки</label>
+                <input type="text" class="form-control" ng-model="newOrder.address" id="address" aria-describedby="AddressHelp">
             </div>
             <div class="mb-3">
                 <label for="inputPhone" class="form-label">Контактный телефон</label>
-                <input type="number" class="form-control" ng-model="phone" id="inputPhone" aria-describedby="PhoneHelp">
+                <input type="number" class="form-control" ng-model="newOrder.phone" id="inputPhone" aria-describedby="PhoneHelp">
             </div>
             <button type="submit" class="btn btn-outline-primary">Оформить заказ</button>
         </form>
