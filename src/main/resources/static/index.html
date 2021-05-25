@@ -214,14 +214,14 @@
     <div>
         <p></p>
 
-        <form novalidate ng-submit="placeOrder()" ng-if="cartDto.items.length > 0">
+        <form novalidate ng-submit="placeOrder(address, phone)" ng-if="cartDto.items.length > 0">
             <div class="mb-3">
                 <label class="form-label">Адрес доставки</label>
-                <input type="text" class="form-control" ng-model="newOrder.address" name="address">
+                <input type="text" class="form-control" ng-model="address" name="address">
             </div>
             <div class="mb-3">
                 <label class="form-label">Контактный телефон</label>
-                <input type="number" class="form-control" ng-model="newOrder.phone" name="phone">
+                <input type="number" class="form-control" ng-model="phone" name="phone">
             </div>
             <button type="submit" class="btn btn-outline-primary">Оформить заказ</button>
         </form>
@@ -238,6 +238,8 @@
                 <th scope="col">Id</th>
                 <th scope="col">Описание</th>
                 <th scope="col">Цена</th>
+                <th scope="col">Адрес</th>
+                <th scope="col">Телефон</th>
             </tr>
             </thead>
             <tbody>
@@ -245,6 +247,8 @@
                 <th scope="row">{{order.id}}</th>
                 <td>{{order.description}}</td>
                 <td>{{order.price}}</td>
+                <td>{{order.address}}</td>
+                <td>{{order.phone}}</td>
             </tr>
             </tbody>
         </table>
