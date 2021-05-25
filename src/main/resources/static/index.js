@@ -113,7 +113,6 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
                 url: contextPath + '/api/v1/orders',
                 method: 'POST'
             }).then(function (response) {
-            alert('Заказ успешно оформлен');
                 $scope.showOrders();
                 $scope.showCart();
             });

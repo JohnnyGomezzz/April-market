@@ -25,6 +25,9 @@
                 <li class="nav-item">
                     <span style="font-weight: bold; font-size: 24px;">April Market</span>
                 </li>
+                <li class="nav-item">
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                </li>
                 <li class="nav-item" ng-show="!isUserLoggedIn()">
                     <form class="align-middle" ng-submit="tryToAuth()">
                         <div class="input-group-prepend">
@@ -45,8 +48,12 @@
 
                     <button class="btn btn-outline-secondary" ng-click="tryToLogout()">Выйти</button>
                 </li>
+
+                <li class="nav-item" style="width: 400px;">
+                </li>
+
                 <li class="nav-item" ng-if="isUserLoggedIn()">
-                    <span ng-if="cartDto.items.length == 0">Корзина пуста</span>
+                    <p style="font-size: 18px;" ng-if="cartDto.items.length == 0">Корзина пуста</p>
                 </li>
             </ul>
         </div>
@@ -190,13 +197,13 @@
 
     <div>
         <p></p>
-        <button class="btn btn-outline-success" ng-click="placeOrder()">Оформить заказ</button>
+        <button class="btn btn-outline-success" ng-click="placeOrder()" ng-if="cartDto.items.length > 0">Оформить заказ</button>
         <p></p>
         <div>
             <h5>Ваши заказы</h5>
         </div>
-        <span ng-if="myOrders.length == 0">Вы пока не сделали ни одного заказа</span>
-        <table class="table">
+        <span ng-show="myOrders.length == 0">Вы пока не сделали ни одного заказа</span>
+        <table class="table" ng-if="myOrders.length > 0">
             <thead>
             <tr>
                 <th scope="col">Id</th>
