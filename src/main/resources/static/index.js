@@ -133,6 +133,17 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
             });
     };
 
+    $scope.tryToReg = function () {
+        $http.post(contextPath + '/api/v1/users/register', $scope.newUser)
+            .then(function successCallback(response) {
+                $scope.newUser = null;
+                alert('Регистрация прошла успешно. Залогиньтесь.');
+            }, function errorCallback(response) {
+                console.log(response.data);
+                alert('Error: ' + response.data.messages);
+            });
+    };
+
     $scope.tryToLogout = function () {
         $scope.clearUser();
     };

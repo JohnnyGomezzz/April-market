@@ -8,6 +8,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.johnnygomezzz.dtos.ProductDto;
+import ru.johnnygomezzz.dtos.UserDto;
+import ru.johnnygomezzz.dtos.UserRegDto;
+import ru.johnnygomezzz.error_handling.ResourceNotFoundException;
+import ru.johnnygomezzz.models.Category;
+import ru.johnnygomezzz.models.Product;
 import ru.johnnygomezzz.models.Role;
 import ru.johnnygomezzz.models.User;
 import ru.johnnygomezzz.repositories.UserRepository;
@@ -34,5 +40,15 @@ public class UserService implements UserDetailsService {
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+    }
+
+    //todo добавить проверку пользователя на наличие имени
+    @Transactional
+    public void createNewUser(UserRegDto userRegDto) {
+        User user = new User();
+        user.setUsername(userRegDto.getUsername());
+        user.setPassword(userRegDto.getPassword());
+        user.setEmail(userRegDto.getEmail());
+        userRepository.save(user);
     }
 }

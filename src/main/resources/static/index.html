@@ -42,6 +42,22 @@
                             </button>
                         </div>
                     </form>
+                    <form class="align-middle" ng-submit="tryToReg()">
+                        <div class="input-group-prepend">
+                            <input id="navLogin" class="form-control" ng-model="newUser.username" type="text"
+                                   aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+
+                            <input id="navPassword" class="form-control" ng-model="newUser.password" type="password"
+                                   aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+
+                            <input id="navEmail" class="form-control" ng-model="newUser.email" type="email"
+                                   aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+
+                            <button id="navSubmit" class="btn btn-outline-warning btn-sm"
+                                    style="margin-left: 10px;" type="submit">Регистрация
+                            </button>
+                        </div>
+                    </form>
                 </li>
                 <li class="nav-item" ng-if="isUserLoggedIn()">
                     <button class="btn btn-outline-secondary" ng-click="whoAmI()">Кто я такой?</button>
