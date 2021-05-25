@@ -2,6 +2,7 @@ package ru.johnnygomezzz.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.johnnygomezzz.dtos.OrderDto;
 import ru.johnnygomezzz.models.Order;
 import ru.johnnygomezzz.models.OrderItem;
 import ru.johnnygomezzz.models.User;
@@ -15,6 +16,7 @@ import java.util.List;
 public class OrderService {
     private final OrderRepository orderRepository;
     private final Cart cart;
+    private OrderDto orderDto;
 
     public List<Order> findAllByUser(User user) {
         return orderRepository.findAllByUser(user);
@@ -29,6 +31,8 @@ public class OrderService {
         for (OrderItem oi : cart.getItems()) {
             oi.setOrder(order);
         }
+        order.setAddress(orderDto.getAddress());
+        order.setPhone(orderDto.getPhone());
         order = orderRepository.save(order);
         cart.deleteAll();
         return order;

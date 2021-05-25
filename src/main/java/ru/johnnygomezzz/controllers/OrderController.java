@@ -32,7 +32,7 @@ public class OrderController {
     }
 
     @PostMapping()
-    public void createNewOrder(Principal principal) {
+    public void createNewOrder(Principal principal, @RequestParam(name = "address") String address, @RequestParam(name = "phone") int phone) {
         User user = userService.findByUsername(principal.getName()).get();
         orderService.createOrderForCurrentUser(user);
     }

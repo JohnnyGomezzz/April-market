@@ -108,10 +108,14 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         });
     };
 
-    $scope.placeOrder = function () {
+    $scope.placeOrder = function (address, phone) {
             $http({
                 url: contextPath + '/api/v1/orders',
-                method: 'POST'
+                method: 'POST',
+                params: {
+                    address: address,
+                    phone: phone
+                }
             }).then(function (response) {
                 $scope.showOrders();
                 $scope.showCart();
