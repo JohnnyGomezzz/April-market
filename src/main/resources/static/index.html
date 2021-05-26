@@ -17,11 +17,16 @@
 
 <div class="container" ng-controller="indexController">
 
+    <!---------------------------------------------------- Авторизация ------------------------------------------------->
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <span style="font-weight: bold; font-size: 24px;">April Market</span>
+                </li>
+                <li class="nav-item">
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
                 </li>
                 <li class="nav-item" ng-show="!isUserLoggedIn()">
                     <form class="align-middle" ng-submit="tryToAuth()">
@@ -37,15 +42,40 @@
                             </button>
                         </div>
                     </form>
+                    <form class="align-middle" ng-submit="tryToReg()">
+                        <div class="input-group-prepend">
+                            <input id="navLogin" class="form-control" ng-model="newUser.username" type="text"
+                                   aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+
+                            <input id="navPassword" class="form-control" ng-model="newUser.password" type="password"
+                                   aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+
+                            <input id="navEmail" class="form-control" ng-model="newUser.email" type="email"
+                                   aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+
+                            <button id="navSubmit" class="btn btn-outline-warning btn-sm"
+                                    style="margin-left: 10px;" type="submit">Регистрация
+                            </button>
+                        </div>
+                    </form>
                 </li>
                 <li class="nav-item" ng-if="isUserLoggedIn()">
                     <button class="btn btn-outline-secondary" ng-click="whoAmI()">Кто я такой?</button>
 
                     <button class="btn btn-outline-secondary" ng-click="tryToLogout()">Выйти</button>
                 </li>
+
+                <li class="nav-item" style="width: 400px;">
+                </li>
+
+                <li class="nav-item" ng-if="isUserLoggedIn()">
+                    <p style="font-size: 18px;" ng-if="cartDto.items.length == 0">Корзина пуста</p>
+                </li>
             </ul>
         </div>
     </nav>
+
+    <!---------------------------------------------------- Товары ------------------------------------------------->
 
     <div>
         <div>
@@ -95,6 +125,10 @@
         </nav>
     </div>
     <br>
+
+    <!---------------------------------------------------- Добавление товара ------------------------------------------------->
+
+
 <!--    <div>-->
 <!--        <h5>Добавить товар</h5>-->
 <!--    </div>-->
@@ -119,7 +153,11 @@
 <!--    </div>-->
     <p></p>
     <br>
-    <div>
+
+    <!---------------------------------------------------- Корзина ------------------------------------------------->
+
+
+    <div ng-if="cartDto.items.length > 0">
         <div>
             <h5>Корзина</h5>
         </div>
@@ -166,16 +204,42 @@
             </tr>
             </tbody>
         </table>
+
         <p></p>
         <button class="btn btn-outline-danger" ng-click="clearCart()">Очистить корзину</button>
+    </div>
+
+    <!---------------------------------------------------- Заказы ------------------------------------------------->
+
+    <div>
         <p></p>
-        <button class="btn btn-outline-success" ng-click="placeOrder()">Оформить заказ</button>
-        <table class="table">
+
+        <form novalidate ng-submit="placeOrder(address, phone)" ng-if="cartDto.items.length > 0">
+            <div class="mb-3">
+                <label class="form-label">Адрес доставки</label>
+                <input type="text" class="form-control" ng-model="address" name="address">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Контактный телефон</label>
+                <input type="number" class="form-control" ng-model="phone" name="phone">
+            </div>
+            <button type="submit" class="btn btn-outline-primary">Оформить заказ</button>
+        </form>
+
+<!--        <button class="btn btn-outline-success" ng-click="placeOrder()" ng-if="cartDto.items.length > 0">Оформить заказ</button>-->
+        <p></p>
+        <div>
+            <h5>Ваши заказы</h5>
+        </div>
+        <span ng-show="myOrders.length == 0">Вы пока не сделали ни одного заказа</span>
+        <table class="table" ng-if="myOrders.length > 0">
             <thead>
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Описание</th>
                 <th scope="col">Цена</th>
+                <th scope="col">Адрес</th>
+                <th scope="col">Телефон</th>
             </tr>
             </thead>
             <tbody>
@@ -183,9 +247,12 @@
                 <th scope="row">{{order.id}}</th>
                 <td>{{order.description}}</td>
                 <td>{{order.price}}</td>
+                <td>{{order.address}}</td>
+                <td>{{order.phone}}</td>
             </tr>
             </tbody>
         </table>
+    </div>
     </div>
 </div>
 <br>

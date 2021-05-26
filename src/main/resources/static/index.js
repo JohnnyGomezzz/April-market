@@ -108,16 +108,19 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         });
     };
 
-    $scope.placeOrder = function () {
-            $http({
-                url: contextPath + '/api/v1/orders',
-                method: 'POST'
-            }).then(function (response) {
-            alert('Заказ успешно оформлен');
-                $scope.showOrders();
-                $scope.showCart();
-            });
-        }
+    $scope.placeOrder = function (address, phone) {
+        $http({
+             url: contextPath + '/api/v1/orders',
+             method: 'POST',
+             params: {
+                 address: address,
+                 phone: phone
+             }
+         }).then(function (response) {
+             $scope.showCart();
+             $scope.showOrders();
+         });
+    };
 
     $scope.tryToAuth = function () {
         $http.post(contextPath + '/auth', $scope.user)
@@ -128,8 +131,20 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
                     $scope.user.username = null;
                     $scope.user.password = null;
+                    $scope.showOrders();
                 }
             }, function errorCallback(response) {
+            });
+    };
+
+    $scope.tryToReg = function () {
+        $http.post(contextPath + '/api/v1/users/register', $scope.newUser)
+            .then(function successCallback(response) {
+                $scope.newUser = null;
+                alert('Регистрация прошла успешно. Залогиньтесь.');
+            }, function errorCallback(response) {
+                console.log(response.data);
+                alert('Error: ' + response.data.messages);
             });
     };
 
