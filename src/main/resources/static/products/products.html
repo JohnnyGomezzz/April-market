@@ -43,47 +43,7 @@
     </ul>
 </nav>
 
-<div ng-show="isUserLoggedIn()">
-    <p></p>
 
-    <form novalidate ng-submit="placeOrder(address, phone)" ng-if="cartDto.items.length > 0">
-        <div class="mb-3">
-            <label class="form-label">Адрес доставки</label>
-            <input type="text" class="form-control" ng-model="address" name="address">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Контактный телефон</label>
-            <input type="number" class="form-control" ng-model="phone" name="phone">
-        </div>
-        <button type="submit" class="btn btn-outline-primary">Оформить заказ</button>
-    </form>
-    <p></p>
-    <div>
-        <h5>Ваши заказы</h5>
-    </div>
-    <span ng-show="myOrders.length == 0">Вы пока не сделали ни одного заказа</span>
-    <table class="table" ng-if="myOrders.length > 0">
-        <thead>
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Описание</th>
-            <th scope="col">Цена</th>
-            <th scope="col">Адрес</th>
-            <th scope="col">Телефон</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="order in myOrders">
-            <th scope="row">{{order.id}}</th>
-            <td>{{order.description}}</td>
-            <td>{{order.price}}</td>
-            <td>{{order.address}}</td>
-            <td>{{order.phone}}</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-</div>
 
 <!--    <p></p>-->
 <!--    <h4>Add new product</h4>-->

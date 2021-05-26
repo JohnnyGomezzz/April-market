@@ -23,7 +23,7 @@ public class ProductController {
 
     @GetMapping
     public Page<ProductDto> getAllProducts(@RequestParam(name = "p", defaultValue = "1") int page) {
-        Page<Product> productsPage = productService.findPage(page - 1, 5);
+        Page<Product> productsPage = productService.findPage(page - 1, 10);
         Page<ProductDto> dtoPage = new PageImpl<>(productsPage.getContent().stream().map(ProductDto::new).collect(Collectors.toList()), productsPage.getPageable(), productsPage.getTotalElements());
         return dtoPage;
     }
