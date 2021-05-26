@@ -36,7 +36,7 @@ public class Order {
     private String address;
 
     @Column(name = "phone")
-    private int phone;
+    private Long phone;
 
     @Column(name = "created_at")
     @CreationTimestamp

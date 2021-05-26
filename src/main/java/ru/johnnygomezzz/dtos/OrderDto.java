@@ -14,7 +14,7 @@ public class OrderDto {
     private String description;
     private BigDecimal price;
     private String address;
-    private int phone;
+    private Long phone;
 
     public OrderDto(Order order) {
         this.id = order.getId();

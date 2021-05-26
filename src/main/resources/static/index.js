@@ -71,6 +71,7 @@ angular.module('app').controller('indexController', function ($scope, $http, $lo
 
     $scope.tryToLogout = function () {
         $scope.clearUser();
+        window.location.reload(true);
     };
 
     $scope.clearUser = function () {
