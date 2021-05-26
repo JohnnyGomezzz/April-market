@@ -11,6 +11,15 @@ angular.module('app').controller('cartController', function ($scope, $http, $loc
         });
     };
 
+    $scope.addProductToCart = function (productId) {
+        $http({
+            url: contextPath + '/api/v1/cart/add/' + productId,
+            method: 'GET'
+        }).then(function (response) {
+            $scope.showCart();
+        });
+    }
+
     $scope.deleteFromCart = function (productId) {
         $http({
             url: contextPath + '/api/v1/cart/delete',
