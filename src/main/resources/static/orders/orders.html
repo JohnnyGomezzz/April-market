@@ -10,6 +10,7 @@
         <th scope="col">Цена</th>
         <th scope="col">Адрес</th>
         <th scope="col">Телефон</th>
+        <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
@@ -19,6 +20,9 @@
         <td>{{order.price}}</td>
         <td>{{order.address}}</td>
         <td>{{order.phone}}</td>
+        <td>
+            <button type="button" class="btn btn-outline-info btn-sm">Ожидает оплаты</button>
+        </td>
     </tr>
     </tbody>
 </table>

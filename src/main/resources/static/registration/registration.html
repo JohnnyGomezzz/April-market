@@ -1,0 +1,19 @@
+<div>
+    <h4>Регистрация</h4>
+</div>
+
+<form ng-submit="tryToReg()">
+    <div class="form-group">
+        <label>Логин</label>
+        <input type="text" class="form-control" placeholder="Придумайте логин" ng-model="newUser.username">
+    </div>
+    <div class="form-group">
+        <label>Пароль</label>
+        <input type="password" class="form-control" placeholder="Придумайте пароль" ng-model="newUser.password">
+    </div>
+    <div class="form-group">
+        <label>Email-адрес</label>
+        <input type="email" class="form-control" placeholder="Введите email" ng-model="newUser.email">
+    </div>
+    <button type="submit" class="btn btn-outline-primary">Зарегистрироваться</button>
+</form>

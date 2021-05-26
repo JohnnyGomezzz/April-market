@@ -72,6 +72,7 @@ angular.module('app').controller('cartController', function ($scope, $http, $loc
          }).then(function (response) {
              $scope.showCart();
              alert('Заказ успешно оформлен');
+             window.location.href = '#!/orders';
          });
     };
 
