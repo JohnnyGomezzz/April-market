@@ -3,39 +3,33 @@ package ru.johnnygomezzz.aop;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
 
 @Aspect
 @Component
 public class AppServicesAspect {
-    private long categoryServiceTotalDuration = 0;
-    private long productServiceTotalDuration = 0;
+    private HashMap<String, Long> classDuration = new HashMap<>();
 
-    @Around("execution(public * ru.johnnygomezzz.services.CategoryService.*(..))")
-    public Object categoryServiceMethodProfiling(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    @Around("execution(public * ru.johnnygomezzz.services.*.*(..))")
+    public Object serviceMethodProfiling(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         long begin = System.currentTimeMillis();
         Object out = proceedingJoinPoint.proceed();
         long end = System.currentTimeMillis();
         long duration = end - begin;
-        categoryServiceTotalDuration += duration;
+
+        MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
+        String className = methodSignature.getDeclaringType().getSimpleName();
+        if (classDuration.containsKey(className)) {
+            duration += classDuration.get(className);
+        }
+        classDuration.put(className, duration);
         return out;
     }
 
-    @Around("execution(public * ru.johnnygomezzz.services.ProductService.*(..))")
-    public Object productServiceMethodProfiling(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-        long begin = System.currentTimeMillis();
-        Object out = proceedingJoinPoint.proceed();
-        long end = System.currentTimeMillis();
-        long duration = end - begin;
-        productServiceTotalDuration += duration;
-        return out;
-    }
-
-    public long getProductServiceTotalDuration() {
-        return productServiceTotalDuration;
-    }
-
-    public long getCategoryServiceTotalDuration() {
-        return categoryServiceTotalDuration;
+    public HashMap<String, Long> getClassDuration() {
+        return classDuration;
     }
 }

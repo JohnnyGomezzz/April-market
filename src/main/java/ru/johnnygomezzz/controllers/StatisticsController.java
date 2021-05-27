@@ -11,15 +11,16 @@ import ru.johnnygomezzz.models.User;
 import ru.johnnygomezzz.services.UserService;
 
 import java.security.Principal;
+import java.util.HashMap;
 
 @RestController
-@RequestMapping("/api/v1/statistic")
+@RequestMapping("/api/v1/statistics")
 @RequiredArgsConstructor
-public class StatisticController {
+public class StatisticsController {
     private final AppServicesAspect appServicesAspect;
 
     @GetMapping
-    public long getServicesStatistic() {
-        return appServicesAspect.getProductServiceTotalDuration();
+    public HashMap<String, Long> getServicesStatistics() {
+        return appServicesAspect.getClassDuration();
     }
 }
