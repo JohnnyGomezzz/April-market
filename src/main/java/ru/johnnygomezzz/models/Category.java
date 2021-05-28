@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,7 +14,9 @@ import java.util.List;
 @Entity
 @Table(name = "categories")
 @NoArgsConstructor
-public class Category {
+public class Category implements Serializable {
+    private static final long serialVersionUID = 2642554793891381L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

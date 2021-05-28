@@ -76,6 +76,6 @@ angular.module('app').controller('indexController', function ($scope, $http, $lo
         } else {
             return false;
         }
-        $scope.user.username
+        $scope.userDto = response.data;
     };
 });

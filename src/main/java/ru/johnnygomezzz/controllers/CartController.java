@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.johnnygomezzz.dtos.CartDto;
 import ru.johnnygomezzz.dtos.ProductDto;
 import ru.johnnygomezzz.models.Product;
+import ru.johnnygomezzz.services.CartService;
 import ru.johnnygomezzz.services.ProductService;
 import ru.johnnygomezzz.utils.Cart;
 
@@ -18,6 +19,7 @@ import java.util.Optional;
 @Slf4j
 public class CartController {
     private final Cart cart;
+    private final CartService cartService;
     private final ProductService productService;
 
     @GetMapping
@@ -28,7 +30,7 @@ public class CartController {
     @GetMapping("/add/{productId}")
     public void addToCart(@PathVariable(name = "productId") Long id) {
         Optional<Product> product = productService.findById(id);
-        cart.addToCart(id);
+        cartService.addToCart(id);
     }
 
     @GetMapping("/delete")
