@@ -2,10 +2,10 @@
     <h4>Мои заказы</h4>
 </div>
 <span ng-show="myOrders.length == 0">Вы пока не сделали ни одного заказа</span>
-<table class="table" ng-if="myOrders.length > 0">
+<table class="table" ng-show="myOrders.length > 0">
     <thead>
     <tr>
-        <th scope="col">Id</th>
+        <th scope="col">Дата заказа</th>
         <th scope="col">Описание</th>
         <th scope="col">Цена</th>
         <th scope="col">Адрес</th>
@@ -15,7 +15,7 @@
     </thead>
     <tbody>
     <tr ng-repeat="order in myOrders">
-        <th scope="row">{{order.id}}</th>
+        <th scope="row">{{order.date}}</th>
         <td>{{order.description}}</td>
         <td>{{order.price}}</td>
         <td>{{order.address}}</td>

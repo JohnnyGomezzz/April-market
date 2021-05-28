@@ -48,23 +48,10 @@ angular.module('app').controller('indexController', function ($scope, $http, $lo
             .then(function successCallback(response) {
                 if (response.data.token) {
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
-                    $localStorage.currentUser = {username: $scope.user.username, token: response.data.token};
-
-                    $scope.currentUserName = $scope.user.username;
-
-                    $scope.user.username = null;
-                    $scope.user.password = null;
-                }
-            }, function errorCallback(response) {
-            });
-    };
-
-    $scope.tryToAuth = function () {
-        $http.post(contextPath + '/auth', $scope.user)
-            .then(function successCallback(response) {
-                if (response.data.token) {
-                    $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
-                    $localStorage.aprilMarketCurrentUser = {username: $scope.user.username, token: response.data.token};
+                    $localStorage.aprilMarketCurrentUser = {
+                        username: $scope.user.username,
+                        token: response.data.token
+                    };
 
                     $scope.user.username = null;
                     $scope.user.password = null;
@@ -89,5 +76,14 @@ angular.module('app').controller('indexController', function ($scope, $http, $lo
         } else {
             return false;
         }
+    };
+
+    $scope.authorizedUser = function () {
+        $http({
+            url: contextPath + '/api/v1/users/me',
+            method: 'GET'
+        }).then(function (response) {
+            $scope.user.username;
+        });
     };
 });
