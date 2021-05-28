@@ -21,7 +21,7 @@ public class OrderService {
         return orderRepository.findAllByUser(user);
     }
 
-    public Order createOrderForCurrentUser(User user, String address, int phone) {
+    public Order createOrderForCurrentUser(User user, String address, Long phone) {
         Order order = new Order();
         order.setUser(user);
         order.setPrice(cart.getSum());

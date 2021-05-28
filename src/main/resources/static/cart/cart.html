@@ -1,0 +1,66 @@
+<p></p>
+<h4>Корзина</h4>
+<table class="table" ng-show="cartDto.items.length > 0">
+    <thead>
+    <tr>
+        <th scope="col">Название</th>
+        <th scope="col">Количество</th>
+        <th scope="col">Цена</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="oi in cartDto.items">
+        <td>{{oi.productTitle}}</td>
+        <td>{{oi.pricePerProduct + ' x ' + oi.quantity + ' = ' + oi.price}}</td>
+        <td>
+            <button class="btn btn-sm btn-outline-primary" ng-click="deleteFromCart(oi.productId)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-dash" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M5.5 10a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
+                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                </svg>
+            </button>
+            {{oi.quantity}}
+            <button class="btn btn-sm btn-outline-primary" ng-click="addProductToCart(oi.productId)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-plus" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z"/>
+                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                </svg>
+            </button>
+        </td>
+        <td>
+            <button class="btn btn-outline-danger" ng-click="deleteProductFromCart(oi.productId)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-x-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM6.854 8.146a.5.5 0 1 0-.708.708L7.293 10l-1.147 1.146a.5.5 0 0 0 .708.708L8 10.707l1.146 1.147a.5.5 0 0 0 .708-.708L8.707 10l1.147-1.146a.5.5 0 0 0-.708-.708L8 9.293 6.854 8.146z"/>
+                </svg>
+            </button>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">Стоимость товаров в корзине</th>
+        <th scope="row">{{cartDto.sum + ' руб.'}}</th>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+<span ng-show="cartDto.items.length == 0">Ваша корзина пуста</span>
+<button ng-click="clearCart()" class="btn btn-primary" ng-if="cartDto.items.length > 0">Очистить корзину</button>
+<p></p>
+
+<div ng-show="isUserLoggedIn()" ng-if="cartDto.items.length > 0">
+    <p></p>
+    <h4>Оформление заказа</h4>
+    <p></p>
+    <form novalidate ng-submit="placeOrder(address, phone)">
+        <div class="mb-3">
+            <label class="form-label">Адрес доставки</label>
+            <input type="text" class="form-control" ng-model="address" name="address">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Контактный телефон</label>
+            <input type="number" class="form-control" ng-model="phone" name="phone">
+        </div>
+        <button type="submit" class="btn btn-outline-primary">Оформить заказ</button>
+    </form>
+
+    <p></p>
+</div>
