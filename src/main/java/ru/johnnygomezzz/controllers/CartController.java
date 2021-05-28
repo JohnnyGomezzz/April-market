@@ -45,4 +45,9 @@ public class CartController {
     public void clearCart() {
         cart.deleteAll();
     }
+
+    @GetMapping("/quantity")
+    public int getCartQuantity() {
+        return cart.getTotalQuantity();
+    }
 }

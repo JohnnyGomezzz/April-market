@@ -76,14 +76,6 @@ angular.module('app').controller('indexController', function ($scope, $http, $lo
         } else {
             return false;
         }
-    };
-
-    $scope.authorizedUser = function () {
-        $http({
-            url: contextPath + '/api/v1/users/me',
-            method: 'GET'
-        }).then(function (response) {
-            $scope.user.username;
-        });
+        $scope.user.username
     };
 });
