@@ -126,10 +126,8 @@
 				<configuration>
 					<sources>
 						<source>${project.basedir}/src/main/resources/products.xsd</source>
+						<source>${project.basedir}/src/main/resources/categories.xsd</source>
 					</sources>
-					<packageName>soap</packageName>
-						<outputDirectory>${project.basedir}/src/main/java/ru/johnnygomezzz/soap</outputDirectory>
-						<clearOutputDir>false</clearOutputDir>
 				</configuration>
 			</plugin>
 		</plugins>

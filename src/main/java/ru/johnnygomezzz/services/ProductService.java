@@ -11,6 +11,7 @@ import ru.johnnygomezzz.models.Category;
 import ru.johnnygomezzz.models.Product;
 import ru.johnnygomezzz.repositories.ProductRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -50,6 +51,10 @@ public class ProductService {
 
     public void deleteById(Long id) {
         productRepository.deleteById(id);
+    }
+
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
     }
 }
 

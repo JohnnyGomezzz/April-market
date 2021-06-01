@@ -23,9 +23,9 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         return new ServletRegistrationBean(servlet, "/ws/*");
     }
 
-    // http://localhost:8080/ws/products.wsdl
+    // http://localhost:8189/market/ws/products.wsdl
     @Bean(name = "products")
-    public DefaultWsdl11Definition studentsWsdl11Definition(XsdSchema productsSchema) {
+    public DefaultWsdl11Definition productsWsdl11Definition(XsdSchema productsSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("ProductsPort");
         wsdl11Definition.setLocationUri("/ws");
@@ -34,8 +34,24 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         return wsdl11Definition;
     }
 
+    // http://localhost:8189/market/ws/categories.wsdl
+    @Bean(name = "categories")
+    public DefaultWsdl11Definition categoriesWsdl11Definition(XsdSchema categoriesSchema) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("CategoriesPort");
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace("http://www.johnnygomezzz.ru/categories");
+        wsdl11Definition.setSchema(categoriesSchema);
+        return wsdl11Definition;
+    }
+
     @Bean
     public XsdSchema productsSchema() {
         return new SimpleXsdSchema(new ClassPathResource("products.xsd"));
+    }
+
+    @Bean
+    public XsdSchema categoriesSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("categories.xsd"));
     }
 }

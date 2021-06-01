@@ -13,6 +13,6 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Page<Product> findAllBy(Pageable pageable);
 
-    @Query("select p from Products p where p.id = ?1")
+    @Query("select p from Product p where p.id = ?1")
     Optional<Product> findById(Long id);
 }
