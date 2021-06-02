@@ -44,7 +44,7 @@ import java.math.BigDecimal;
     "category",
     "price"
 })
-public class Product {
+public class ProductEntity {
 
     protected long id;
     @XmlElement(required = true)

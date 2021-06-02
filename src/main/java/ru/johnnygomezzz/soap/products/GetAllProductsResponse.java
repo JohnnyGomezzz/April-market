@@ -40,7 +40,7 @@ import java.util.List;
 public class GetAllProductsResponse {
 
     @XmlElement(required = true)
-    protected List<Product> products;
+    protected List<ProductEntity> productEntities;
 
     /**
      * Gets the value of the products property.
@@ -60,15 +60,15 @@ public class GetAllProductsResponse {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Product }
+     * {@link ProductEntity }
      * 
      * 
      */
-    public List<Product> getProducts() {
-        if (products == null) {
-            products = new ArrayList<Product>();
+    public List<ProductEntity> getProducts() {
+        if (productEntities == null) {
+            productEntities = new ArrayList<ProductEntity>();
         }
-        return this.products;
+        return this.productEntities;
     }
 
 }

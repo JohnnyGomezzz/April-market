@@ -61,11 +61,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Product }
+     * Create an instance of {@link ProductEntity }
      * 
      */
-    public Product createProduct() {
-        return new Product();
+    public ProductEntity createProduct() {
+        return new ProductEntity();
     }
 
     /**

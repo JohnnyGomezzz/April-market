@@ -9,7 +9,6 @@
 package ru.johnnygomezzz.soap.products;
 
 import javax.xml.bind.annotation.*;
-import java.util.Optional;
 
 
 /**
@@ -39,18 +38,18 @@ import java.util.Optional;
 public class GetProductByIdResponse {
 
     @XmlElement(required = true)
-    protected Product product;
+    protected ProductEntity productEntity;
 
     /**
      * Gets the value of the product property.
      * 
      * @return
      *     possible object is
-     *     {@link Product }
+     *     {@link ProductEntity }
      *     
      */
-    public Product getProduct() {
-        return product;
+    public ProductEntity getProduct() {
+        return productEntity;
     }
 
     /**
@@ -58,11 +57,11 @@ public class GetProductByIdResponse {
      *
      * @param value
      *     allowed object is
-     *     {@link Product }
+     *     {@link ProductEntity }
      *     
      */
-    public void setProduct(Product value) {
-        this.product = value;
+    public void setProduct(ProductEntity value) {
+        this.productEntity = value;
     }
 
 }
