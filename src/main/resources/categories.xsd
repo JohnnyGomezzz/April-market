@@ -22,7 +22,7 @@
 <!--    <xs:element name="getProductByIdResponse">-->
 <!--        <xs:complexType>-->
 <!--            <xs:sequence>-->
-<!--                <xs:element name="product" type="tns:product"/>-->
+<!--                <xs:element name="productEntity" type="tns:productEntity"/>-->
 <!--            </xs:sequence>-->
 <!--        </xs:complexType>-->
 <!--    </xs:element>-->
@@ -30,7 +30,7 @@
 <!--    <xs:element name="getAllProductsResponse">-->
 <!--        <xs:complexType>-->
 <!--            <xs:sequence>-->
-<!--                <xs:element name="products" maxOccurs="unbounded" type="tns:product"/>-->
+<!--                <xs:element name="products" maxOccurs="unbounded" type="tns:productEntity"/>-->
 <!--            </xs:sequence>-->
 <!--        </xs:complexType>-->
 <!--    </xs:element>-->
