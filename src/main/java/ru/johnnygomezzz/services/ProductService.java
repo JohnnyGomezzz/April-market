@@ -10,9 +10,12 @@ import ru.johnnygomezzz.error_handling.ResourceNotFoundException;
 import ru.johnnygomezzz.models.Category;
 import ru.johnnygomezzz.models.Product;
 import ru.johnnygomezzz.repositories.ProductRepository;
+import ru.johnnygomezzz.soap.products.ProductEntity;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -53,8 +56,21 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public List<ProductEntity> getAllProducts() {
+        return productRepository.findAll().stream().map(functionProductToSoap).collect(Collectors.toList());
     }
+
+    public ProductEntity getById(Long id) {
+        return productRepository.findById(id).map(functionProductToSoap).get();
+    }
+    public static final Function<Product, ProductEntity>
+            functionProductToSoap = product -> {
+        ProductEntity pe = new ProductEntity();
+        pe.setId(product.getId());
+        pe.setTitle(product.getTitle());
+        pe.setPrice(product.getPrice());
+        pe.setCategory(product.getCategory().getTitle());
+        return pe;
+    };
 }
 

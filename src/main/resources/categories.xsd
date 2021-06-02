@@ -35,11 +35,11 @@
 <!--        </xs:complexType>-->
 <!--    </xs:element>-->
 
-    <xs:complexType name="category">
+    <xs:complexType name="categoryEntity">
         <xs:sequence>
             <xs:element name="id" type="xs:long"/>
             <xs:element name="title" type="xs:string"/>
-            <xs:element name="products" maxOccurs="unbounded" type="st:product"/>
+            <xs:element name="products" maxOccurs="unbounded" type="st:productEntity"/>
         </xs:sequence>
     </xs:complexType>
 </xs:schema>
