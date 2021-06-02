@@ -15,25 +15,25 @@ public class CategoryEndpoint {
     private final CategoryService categoryService;
 
     /*
-        Пример запроса: POST http://localhost:8080/ws
+        Пример запроса: POST http://localhost:8189/market/ws
 
         <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-          xmlns:f="http://www.flamexander.com/spring/ws/groups">
+          xmlns:f="http://www.johnnygomezzz.ru/groups">
             <soapenv:Header/>
             <soapenv:Body>
-                <f:getGroupByTitleRequest>
-                    <f:title>ABC-123</f:title>
-                </f:getGroupByTitleRequest>
+                <f:getCategoryByTitleRequest>
+                    <f:title>Продукты питания</f:title>
+                </f:getCategoryByTitleRequest>
             </soapenv:Body>
         </soapenv:Envelope>
      */
 
-//    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getGroupByTitleRequest")
+//    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getCategoryByTitleRequest")
 //    @ResponsePayload
 //    @Transactional
-//    public GetGroupByTitleResponse getGroupByTitle(@RequestPayload GetGroupByTitleRequest request) {
-//        GetGroupByTitleResponse response = new GetGroupByTitleResponse();
-//        response.setGroup(groupService.getByTitle(request.getTitle()));
+//    public GetCategoryByTitleResponse getGroupByTitle(@RequestPayload GetCategoryByTitleRequest request) {
+//        GetCategoryByTitleResponse response = new GetCategoryByTitleResponse();
+//        response.setGroup(categoryService.getByTitle(request.getTitle()));
 //        return response;
 //    }
 }
