@@ -87,4 +87,6 @@ angular.module('app').controller('indexController', function ($scope, $http, $lo
             $scope.userDto = response.data;
         });
     };
+
+//    $scope.showUser();
 });
