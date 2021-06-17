@@ -7,34 +7,6 @@
 
     <xs:import schemaLocation="products.xsd" namespace="http://www.johnnygomezzz.ru/products"/>
 
-<!--    <xs:element name="getProductByIdRequest">-->
-<!--        <xs:complexType>-->
-<!--            <xs:sequence>-->
-<!--                <xs:element name="id" type="xs:long"/>-->
-<!--            </xs:sequence>-->
-<!--        </xs:complexType>-->
-<!--    </xs:element>-->
-
-<!--    <xs:element name="getAllProductsRequest">-->
-<!--        <xs:complexType/>-->
-<!--    </xs:element>-->
-
-<!--    <xs:element name="getProductByIdResponse">-->
-<!--        <xs:complexType>-->
-<!--            <xs:sequence>-->
-<!--                <xs:element name="productEntity" type="tns:productEntity"/>-->
-<!--            </xs:sequence>-->
-<!--        </xs:complexType>-->
-<!--    </xs:element>-->
-
-<!--    <xs:element name="getAllProductsResponse">-->
-<!--        <xs:complexType>-->
-<!--            <xs:sequence>-->
-<!--                <xs:element name="products" maxOccurs="unbounded" type="tns:productEntity"/>-->
-<!--            </xs:sequence>-->
-<!--        </xs:complexType>-->
-<!--    </xs:element>-->
-
     <xs:complexType name="categoryEntity">
         <xs:sequence>
             <xs:element name="id" type="xs:long"/>

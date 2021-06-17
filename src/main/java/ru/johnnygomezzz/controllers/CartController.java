@@ -29,7 +29,6 @@ public class CartController {
 
     @GetMapping("/add/{productId}")
     public void addToCart(@PathVariable(name = "productId") Long id) {
-        Optional<Product> product = productService.findById(id);
         cartService.addToCart(id);
     }
 
