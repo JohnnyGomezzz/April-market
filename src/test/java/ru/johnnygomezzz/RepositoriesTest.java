@@ -69,6 +69,21 @@ public class RepositoriesTest {
     }
 
     @Test
+    public void userRepositoryTest() {
+        User user = new User();
+        user.setUsername("tempUser");
+        user.setPassword("111");
+        entityManager.persist(user);
+        entityManager.flush();
+
+        List<User> usersList = userRepository.findAll();
+
+        Assertions.assertEquals(3, usersList.size());
+        Assertions.assertEquals("tempUser", usersList.get(2).getUsername());
+        Assertions.assertEquals("111", usersList.get(2).getPassword());
+    }
+
+    @Test
     public void initUserDbTest() {
         List<User> usersList = userRepository.findAll();
         Assertions.assertEquals(2, usersList.size());
