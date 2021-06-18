@@ -7,9 +7,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 import ru.johnnygomezzz.models.Category;
+import ru.johnnygomezzz.models.Order;
 import ru.johnnygomezzz.models.Product;
 import ru.johnnygomezzz.models.User;
 import ru.johnnygomezzz.repositories.CategoryRepository;
+import ru.johnnygomezzz.repositories.OrderRepository;
 import ru.johnnygomezzz.repositories.ProductRepository;
 import ru.johnnygomezzz.repositories.UserRepository;
 
@@ -26,6 +28,9 @@ public class RepositoriesTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Autowired
     private TestEntityManager entityManager;
@@ -87,5 +92,24 @@ public class RepositoriesTest {
     public void initUserDbTest() {
         List<User> usersList = userRepository.findAll();
         Assertions.assertEquals(2, usersList.size());
+    }
+
+    @Test
+    public void orderRepositoryTest() {
+        Order order = new Order();
+        order.setAddress("Питер");
+        entityManager.persist(order);
+        entityManager.flush();
+
+        List<Order> ordersList = orderRepository.findAll();
+
+        Assertions.assertEquals(1, ordersList.size());
+        Assertions.assertEquals("Питер", ordersList.get(0).getAddress());
+    }
+
+    @Test
+    public void initOrderDbTest() {
+        List<Order> ordersList = orderRepository.findAll();
+        Assertions.assertEquals(0, ordersList.size());
     }
 }
