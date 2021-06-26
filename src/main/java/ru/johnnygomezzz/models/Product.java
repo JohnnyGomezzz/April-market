@@ -32,6 +32,9 @@ public class Product implements Serializable {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @Column(name = "photo")
+    private String photo;
+
     @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;

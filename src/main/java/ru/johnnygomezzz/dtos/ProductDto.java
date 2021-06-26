@@ -21,10 +21,13 @@ public class ProductDto {
 
     private String categoryTitle;
 
+    private String photo;
+
     public ProductDto(Product product) {
         this.id = product.getId();
         this.title = product.getTitle();
         this.price = product.getPrice();
         this.categoryTitle = product.getCategory().getTitle();
+        this.photo = product.getPhoto();
     }
 }

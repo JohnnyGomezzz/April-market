@@ -29,6 +29,7 @@
     <tr>
         <th scope="col">ID</th>
         <th scope="col">Название</th>
+        <th scope="col"></th>
         <th scope="col">Категория</th>
         <th scope="col">Цена</th>
         <th scope="col"></th>
@@ -45,6 +46,7 @@
                 </svg>
             </button>
         </td>
+        <td><img ng-src="{{p.photo}}" width="100" ng-click="showProductInfo(p.id)"></td>
         <td>{{p.categoryTitle}}</td>
         <td>{{p.price}}</td>
         <td>
