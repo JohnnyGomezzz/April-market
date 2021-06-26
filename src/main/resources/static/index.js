@@ -28,6 +28,10 @@
                 templateUrl: 'registration/registration.html',
                 controller: 'registrationController'
             })
+            .when('/product_info/:productIdParam', {
+                templateUrl: 'product_info/product_info.html',
+                controller: 'productInfoController'
+            })
             .otherwise({
                 redirectTo: '/'
             });

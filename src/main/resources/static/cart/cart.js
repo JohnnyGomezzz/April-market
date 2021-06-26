@@ -1,4 +1,4 @@
-angular.module('app').controller('cartController', function ($scope, $http, $localStorage) {
+angular.module('app').controller('cartController', function ($scope, $http, $localStorage, $location) {
     const contextPath = 'http://localhost:8189/market';
 
     $scope.showCart = function (page) {
@@ -75,6 +75,10 @@ angular.module('app').controller('cartController', function ($scope, $http, $loc
              window.location.href = '#!/orders';
          });
     };
+
+    $scope.showProductInfo = function (productId) {
+        $location.path('/product_info/' + productId);
+    }
 
     $scope.showCart();
 });
