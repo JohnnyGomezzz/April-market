@@ -52,6 +52,7 @@ create table products (
     price           numeric(8, 2),
     category_id     bigint references categories (id),
     photo           varchar(1024),
+--    description     varchar(512),
     created_at      timestamp default current_timestamp,
     updated_at      timestamp default current_timestamp
 );
@@ -91,6 +92,15 @@ create table order_items (
     quantity            int,
     price_per_product   numeric (8, 2),
     price               numeric (8, 2),
+    created_at          timestamp default current_timestamp,
+    updated_at          timestamp default current_timestamp
+);
+
+create table feedback (
+    id                  bigserial primary key,
+    user_id             bigint references users (id),
+    product_id          bigint references products (id),
+    message             varchar(1024),
     created_at          timestamp default current_timestamp,
     updated_at          timestamp default current_timestamp
 );

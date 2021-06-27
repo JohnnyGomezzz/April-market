@@ -10,5 +10,27 @@ angular.module('app').controller('productInfoController', function ($scope, $htt
         });
     };
 
+    $scope.placeFeedback = function (message) {
+        $http({
+             url: contextPath + '/api/v1/feedback',
+             method: 'POST',
+             params: {
+                 message: message
+             }
+         }).then(function (response) {
+             $scope.showFeedback();
+         });
+    };
+
+    $scope.showFeedback = function () {
+        $http({
+            url: contextPath + '/api/v1/feedback',
+            method: 'GET'
+        }).then(function (response) {
+            $scope.feedbacks = response.data;
+        });
+    };
+
+    $scope.showFeedback();
     $scope.loadProduct();
 });

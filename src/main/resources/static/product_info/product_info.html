@@ -1,5 +1,46 @@
 <p></p>
 <h3>Информация о товаре</h3>
-<img ng-src="{{prod.photo}}" width="300">
-<h5>{{prod.title}}</h5>
-<h5>{{prod.price}} руб.</h5>
+
+<table cellpadding="50">
+    <tr>
+        <td>
+            <img ng-src="{{prod.photo}}" width="300">
+        </td>
+        <td valign="top" >
+            <p>
+            <h4>{{prod.title}}</h4><br>
+            Цена:
+            <h5>{{prod.price}} руб.</h5>
+            </p>
+        </td>
+    </tr>
+</table>
+<p></p>
+<h3>Отзывы</h3>
+<span ng-show="feedbacks.length == 0">Об этом товаре пока нет отзывов</span>
+
+<form novalidate ng-submit="placeFeedback(message)">
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Оставить отзыв о товаре {{prod.title}}</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" ng-model="message"></textarea>
+    </div>
+    <button type="submit" class="btn btn-outline-primary">Отправить</button>
+</form>
+
+<table class="table" ng-show="feedbacks.length > 0">
+    <thead>
+    <tr>
+        <th scope="col">Дата</th>
+        <th scope="col">Покупатель</th>
+        <th scope="col">Сообщение</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="feedback in feedbacks">
+        <th scope="row">{{feedback.date}}</th>
+        <td>{{feedback.username}}</td>
+        <td>{{feedback.message}}</td>
+    </tr>
+    </tbody>
+</table>
+<span>{{}}</span>
