@@ -32,6 +32,7 @@ angular.module('app').controller('productInfoController', function ($scope, $htt
              }
         }).then(function successCallback(response) {
             $scope.loadFeedback();
+            $("#feedbackArea").val("");
             }, function errorCallback(response) {
                  console.log(response.data);
                  alert('Error: ' + response.data.messages);

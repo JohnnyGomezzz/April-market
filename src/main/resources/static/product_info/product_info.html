@@ -9,8 +9,8 @@
         <td valign="top" >
             <p>
             <h4>{{prod.title}}</h4>
-            {{prod.category}}
-            <br>
+            {{prod.categoryTitle}}
+            <p></p>
             Цена:
             <h5>{{prod.price}} руб.</h5>
             </p>
@@ -46,8 +46,8 @@
 <div ng-show="isUserLoggedIn()">
     <form novalidate ng-submit="saveMessage()">
         <div class="form-group">
-            <label for="exampleFormControlTextarea1">Оставить отзыв о товаре {{prod.title}}</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" ng-model="message"></textarea>
+            <label for="feedbackArea">Оставить отзыв о товаре {{prod.title}}</label>
+            <textarea class="form-control" id="feedbackArea" rows="3" ng-model="message"></textarea>
         </div>
         <button type="submit" class="btn btn-outline-primary">Отправить</button>
     </form>
