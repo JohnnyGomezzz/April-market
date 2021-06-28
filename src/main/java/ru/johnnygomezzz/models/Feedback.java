@@ -2,14 +2,11 @@ package ru.johnnygomezzz.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Entity
@@ -24,10 +21,6 @@ public class Feedback {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    @OneToMany(mappedBy = "feedback")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private List<Feedback> feedbacks;
 
     @ManyToOne
     @JoinColumn(name = "product_id")

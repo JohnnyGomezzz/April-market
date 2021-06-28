@@ -8,7 +8,9 @@
         </td>
         <td valign="top" >
             <p>
-            <h4>{{prod.title}}</h4><br>
+            <h4>{{prod.title}}</h4>
+            {{prod.category}}
+            <br>
             Цена:
             <h5>{{prod.price}} руб.</h5>
             </p>
@@ -16,16 +18,13 @@
     </tr>
 </table>
 <p></p>
-<h3>Отзывы</h3>
-<span ng-show="feedbacks.length == 0">Об этом товаре пока нет отзывов</span>
 
-<form novalidate ng-submit="placeFeedback(message)">
-    <div class="form-group">
-        <label for="exampleFormControlTextarea1">Оставить отзыв о товаре {{prod.title}}</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" ng-model="message"></textarea>
-    </div>
-    <button type="submit" class="btn btn-outline-primary">Отправить</button>
-</form>
+<h3>Отзывы</h3>
+
+<div class="navbar bg-light" ng-show="feedbacks.length == 0">
+    <span>Об этом товаре пока нет отзывов</span>
+</div>
+<p></p>
 
 <table class="table" ng-show="feedbacks.length > 0">
     <thead>
@@ -43,4 +42,15 @@
     </tr>
     </tbody>
 </table>
+
+<div ng-show="isUserLoggedIn()">
+    <form novalidate ng-submit="saveMessage()">
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Оставить отзыв о товаре {{prod.title}}</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" ng-model="message"></textarea>
+        </div>
+        <button type="submit" class="btn btn-outline-primary">Отправить</button>
+    </form>
+</div>
+
 <span>{{}}</span>
