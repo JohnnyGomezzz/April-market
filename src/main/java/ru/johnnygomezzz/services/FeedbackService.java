@@ -3,6 +3,7 @@ package ru.johnnygomezzz.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.johnnygomezzz.error_handling.ResourceNotFoundException;
 import ru.johnnygomezzz.models.*;
 import ru.johnnygomezzz.repositories.FeedbackRepository;
 import ru.johnnygomezzz.repositories.UserRepository;
@@ -41,6 +42,7 @@ public class FeedbackService {
                 }
             }
         }
+        throw new ResourceNotFoundException("Product doesn't exists in orders");
     }
 }
 

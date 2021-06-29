@@ -35,7 +35,7 @@ angular.module('app').controller('productInfoController', function ($scope, $htt
             $("#feedbackArea").val("");
             }, function errorCallback(response) {
                  console.log(response.data);
-                 alert('Error: ' + response.data.messages);
+                 alert('Error: Вы не можете оставить отзыв, т.к. ещё не покупали этот товар.');
         });
     }
 
@@ -59,6 +59,14 @@ angular.module('app').controller('productInfoController', function ($scope, $htt
             $scope.feedback = response.data;
         });
     };
+
+    $scope.addProductToCart = function (productId) {
+        $http({
+            url: contextPath + '/api/v1/cart/add/' + productId,
+            method: 'GET'
+        }).then(function (response) {
+        });
+    }
 
     $scope.isUserLoggedIn = function () {
         if ($localStorage.aprilMarketCurrentUser) {
