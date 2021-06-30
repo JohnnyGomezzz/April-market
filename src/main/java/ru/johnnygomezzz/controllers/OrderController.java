@@ -1,13 +1,8 @@
 package ru.johnnygomezzz.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.johnnygomezzz.dtos.OrderDto;
-import ru.johnnygomezzz.error_handling.InvalidDataException;
-import ru.johnnygomezzz.models.Order;
 import ru.johnnygomezzz.models.User;
 import ru.johnnygomezzz.services.OrderService;
 import ru.johnnygomezzz.services.UserService;
@@ -32,7 +27,7 @@ public class OrderController {
     }
 
     @PostMapping()
-    public void createNewOrder(Principal principal, @RequestParam(name = "address") String address, @RequestParam(name = "phone") Long phone) {
+    public void createNewOrder(Principal principal, @RequestParam(name = "address") String address, @RequestParam(name = "phone") String phone) {
         User user = userService.findByUsername(principal.getName()).get();
         orderService.createOrderForCurrentUser(user, address, phone);
     }

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.johnnygomezzz.dtos.CartDto;
+import ru.johnnygomezzz.dtos.OrderItemDto;
 import ru.johnnygomezzz.services.CartService;
 import ru.johnnygomezzz.utils.Cart;
 
@@ -13,6 +14,7 @@ import ru.johnnygomezzz.utils.Cart;
 @Slf4j
 public class CartController {
     private final Cart cart;
+    private OrderItemDto orderItemDto;
     private final CartService cartService;
 
     @GetMapping

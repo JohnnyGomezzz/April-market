@@ -80,7 +80,7 @@ create table orders (
     user_id             bigint references users (id),
     price               numeric (8, 2),
     address             varchar (255),
-    phone               bigint,
+    phone               varchar(20),
     created_at          timestamp default current_timestamp,
     updated_at          timestamp default current_timestamp
 );

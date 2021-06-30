@@ -2,7 +2,6 @@ package ru.johnnygomezzz.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.johnnygomezzz.dtos.OrderDto;
 import ru.johnnygomezzz.models.Order;
 import ru.johnnygomezzz.models.OrderItem;
 import ru.johnnygomezzz.models.User;
@@ -21,7 +20,7 @@ public class OrderService {
         return orderRepository.findAllByUser(user);
     }
 
-    public Order createOrderForCurrentUser(User user, String address, Long phone) {
+    public Order createOrderForCurrentUser(User user, String address, String phone) {
         Order order = new Order();
         order.setUser(user);
         order.setPrice(cart.getSum());

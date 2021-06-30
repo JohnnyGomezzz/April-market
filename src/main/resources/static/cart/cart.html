@@ -51,7 +51,7 @@
     </tr>
     </tbody>
 </table>
-<span ng-show="cartDto.items.length == 0">Ваша корзина пуста</span>
+<span class="navbar bg-light" ng-show="cartDto.items.length == 0">Ваша корзина пуста</span>
 <button ng-click="clearCart()" class="btn btn-primary" ng-if="cartDto.items.length > 0">Очистить корзину</button>
 <p></p>
 
@@ -66,7 +66,12 @@
         </div>
         <div class="mb-3">
             <label class="form-label">Контактный телефон</label>
-            <input type="number" class="form-control" ng-model="phone" name="phone">
+            <input type="text" class="form-control" ng-model="phone" id="phone">
+                <script>
+                    $(function(){
+                    $("#phone").mask("+7(999) 999-9999");
+                    });
+                </script>
         </div>
         <button type="submit" class="btn btn-outline-primary">Оформить заказ</button>
     </form>
