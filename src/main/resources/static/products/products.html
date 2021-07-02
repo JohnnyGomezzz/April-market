@@ -1,29 +1,35 @@
 <p></p>
 <h3>Каталог товаров</h3>
-<p></p>
-<h5>Фильтровать</h5>
+<div style="float: left; width: 100%;">&nbsp;</div>
+
+<div style="float: left; width: 15%; ">
+
+<h5>Фильтр</h5>
 <form novalidate ng-submit="loadPage()">
-    <div class="form-group row">
-        <div class="form-group col-md-3">
+    <div class="form-group">
+        <div class="form-group">
             <label for="filterTitle">Название товара</label>
             <input class="form-control" type="text" ng-model="filter.title" id="filterTitle">
         </div>
-        <div class="form-group col-md-3">
+        <div class="form-group">
             <label for="filterMinPrice">Минимальная цена</label>
             <input class="form-control" type="number" ng-model="filter.min_price" id="filterMinPrice">
         </div>
-        <div class="form-group col-md-3">
+        <div class="form-group">
             <label for="filterMaxPrice">Максимальная цена</label>
             <input class="form-control" type="number" ng-model="filter.max_price" id="filterMaxPrice">
         </div>
-        <div class="form-group col-md-3">
-            <label>Фильтр</label>
-            <button class="form-control btn btn-primary" type="submit">Применить</button>
+        <div class="form-group">
+            <button class="form-control btn btn-outline-primary" type="submit">Применить</button>
         </div>
     </div>
 </form>
+</div>
 
-<p></p>
+<div style="float: left; width: 5%;">&nbsp;</div>
+
+<div style="float: left; width: 80%;">
+
 <table class="table">
     <thead>
     <tr>
@@ -76,6 +82,7 @@
         </li>
     </ul>
 </nav>
+</div>
 
 
 
