@@ -31,9 +31,9 @@ public class Cart implements Serializable {
         items = new ArrayList<>();
     }
 
-    public void addToCart(Product product, Long id) {
+    public void addToCart(Product product) {
         for (OrderItem orderItem : items) {
-            if (orderItem.getProduct().getId().equals(id)) {
+            if (orderItem.getProduct().getId().equals(product.getId())) {
                 orderItem.incrementQuantity();
                 recalculate();
                 return;

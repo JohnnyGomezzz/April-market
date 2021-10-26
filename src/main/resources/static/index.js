@@ -55,6 +55,7 @@ angular.module('app').controller('indexController', function ($scope, $http, $lo
 
                     $scope.user.username = null;
                     $scope.user.password = null;
+                    $scope.showUser();
                 }
             }, function errorCallback(response) {
             });
@@ -77,4 +78,15 @@ angular.module('app').controller('indexController', function ($scope, $http, $lo
             return false;
         }
     };
+
+    $scope.showUser = function () {
+        $http({
+            url: contextPath + '/api/v1/users/me',
+            method: 'GET'
+        }).then(function (response) {
+            $scope.userDto = response.data;
+        });
+    };
+
+//    $scope.showUser();
 });

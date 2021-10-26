@@ -52,8 +52,10 @@
                         </form>
                     </li>
                     <li class="nav-item" ng-show="isUserLoggedIn()">
-                        <button class="btn btn-outline-secondary" ng-click="tryToLogout()">Выйти</button>
-                        <span style="margin-left: 10px;">Здравствуйте, {{userDto.username}}, приятных покупок!</span>
+                        <span style="margin-left: 100px;">
+                            Здравствуйте, <a href = "#">{{userDto.username}}</a>, приятных покупок!
+                        </span>
+                        <button style="margin-left: 10px;" class="btn btn-outline-secondary" ng-click="tryToLogout()">Выйти</button>
                     </li>
                 </ul>
             </div>
