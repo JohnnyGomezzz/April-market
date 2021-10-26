@@ -1,46 +1,35 @@
 package ru.johnnygomezzz.repository;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import ru.johnnygomezzz.entity.Student;
+import ru.johnnygomezzz.util.SessionFactoryUtil;
 
 import java.util.List;
 
-public class StudentRepository {
-    private SessionFactory factory;
+public class StudentRepository extends AbstractRepository<Student, Long> {
 
-    public Student findById(Long id) {
-        try (Session session = factory.getCurrentSession()) {
-            session.beginTransaction();
-            Student student = session.get(Student.class, id);
-            session.getTransaction().commit();
-            return student;
-        }
+    public StudentRepository(Class<Student> typeClass, Class<Long> longClass) {
+        super(typeClass, longClass);
     }
 
-    public List<Student> findAll() {
-        try (Session session = factory.getCurrentSession()) {
-            session.beginTransaction();
-            List<Student> students = (List<Student>)session.get("from " + Student.class.getSimpleName(), List.class);
-            session.getTransaction().commit();
-            return students;
-        }
+    public Student findStudent(Long id) {
+        return findById(id);
     }
 
-    public Student saveOrUpdate(Student obj) {
-        try (Session session = factory.getCurrentSession()) {
-            session.beginTransaction();
-            session.saveOrUpdate(obj);
-            session.getTransaction().commit();
-            return obj;
-        }
+    public List<Student> findStudents() {
+        return findAll();
     }
 
-    public void delete(Student obj) {
-        try (Session session = factory.getCurrentSession()) {
-            session.beginTransaction();
-            session.delete(obj);
-            session.getTransaction().commit();
-        }
+    public void saveUpdate(Student student) {
+        saveOrUpdate(student);
     }
+//
+//    public void delete(Student obj) {
+//        try (Session session = factory.getCurrentSession()) {
+//            session.beginTransaction();
+//            session.delete(obj);
+//            session.getTransaction().commit();
+//        }
+//    }
 }
