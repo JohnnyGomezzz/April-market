@@ -25,9 +25,6 @@ public class Category implements Serializable {
     @Column(name = "title")
     private String title;
 
-    @OneToMany(mappedBy = "category")
-    private List<Product> products;
-
     @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;

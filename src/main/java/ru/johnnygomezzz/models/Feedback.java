@@ -6,34 +6,28 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
+@Table(name = "feedback")
 @NoArgsConstructor
-@Table(name = "products")
-public class Product implements Serializable {
-    private static final long serialVersionUID = 2906642554793891L;
-
+public class Feedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "title")
-    private String title;
-
-    @Column(name = "price")
-    private BigDecimal price;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-    @Column(name = "photo")
-    private String photo;
+    @Column(name = "message")
+    private String message;
 
     @Column(name = "created_at")
     @CreationTimestamp

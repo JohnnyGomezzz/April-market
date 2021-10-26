@@ -1,4 +1,4 @@
-angular.module('app').controller('productsController', function ($scope, $http, $localStorage) {
+angular.module('app').controller('productsController', function ($scope, $http, $localStorage, $location) {
     const contextPath = 'http://localhost:8189/market';
 
     $scope.isUserLoggedIn = function () {
@@ -52,5 +52,19 @@ angular.module('app').controller('productsController', function ($scope, $http, 
         return arr;
     }
 
+    $scope.showProductInfo = function (productId) {
+        $location.path('/product_info/' + productId);
+    }
+//
+//    $scope.getCategoriesList = function () {
+//        $http({
+//            url: contextPath + '/api/v1/categories',
+//            method: 'GET'
+//        }).then(function (response) {
+//            $scope.CategoriesList = response.data;
+//        });
+//    };
+//
+//    $scope.getCategoriesList();
     $scope.loadPage(1);
 });

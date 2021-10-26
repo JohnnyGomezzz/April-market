@@ -28,7 +28,7 @@ public class CartTest {
         cart.deleteAllById(2L);
         Assertions.assertEquals(4, cart.getItems().size());
         cart.deleteById(1L);
-        Assertions.assertEquals(4, cart.getItems().size());
+        Assertions.assertEquals(46, cart.getItems().size());
         cart.deleteAll();
         Assertions.assertEquals(0, cart.getItems().size());
     }

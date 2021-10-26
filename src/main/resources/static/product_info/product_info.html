@@ -1,0 +1,61 @@
+<p></p>
+<h3>Информация о товаре</h3>
+
+<table cellpadding="50" style="">
+    <tr>
+        <td>
+            <img ng-src="{{prod.photo}}" width="300">
+        </td>
+        <td valign="top" >
+            <p>
+            <h4>{{prod.title}}</h4>
+            {{prod.categoryTitle}}
+            <p></p>
+            Цена:
+            <h5>{{prod.price}} руб.</h5>
+            </p>
+            <button ng-click="addProductToCart(prod.id)" class="btn btn-outline-success">В корзину</button>
+        </td>
+    </tr>
+</table>
+<p></p>
+
+<h3>Отзывы</h3>
+
+<div class="navbar bg-light" ng-show="feedbacks.length == 0">
+    <span>Об этом товаре пока нет отзывов</span>
+</div>
+<p></p>
+
+<table class="table bg-light" ng-show="feedbacks.length > 0" style="table-layout: fixed;" ng-repeat="feedback in feedbacks">
+    <thead>
+    <tr>
+        <td style="font-size: 10pt; color: green;">
+            Автор: <b>{{feedback.username}}</b>
+        </td>
+        <td style="font-size: 10pt; color: green;">
+            {{feedback.date}}
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td colspan="5" style="word-wrap: break-all;">{{feedback.message}}</td>
+    </tr>
+    </tbody>
+</table>
+
+<div ng-show="isUserLoggedIn()">
+    <form novalidate ng-submit="saveMessage()">
+        <div class="form-group">
+            <label style="color: light-blue;" for="feedbackArea">Оставить отзыв о товаре {{prod.title}}</label>
+            <textarea class="form-control" id="feedbackArea" rows="3" ng-model="message"></textarea>
+        </div>
+        <button type="submit" class="btn btn-outline-primary">Отправить</button>
+    </form>
+</div>
+
+<span>{{}}</span>

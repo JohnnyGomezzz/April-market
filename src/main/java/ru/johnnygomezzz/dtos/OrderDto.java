@@ -6,7 +6,6 @@ import ru.johnnygomezzz.models.Order;
 
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.stream.Collectors;
 
 @Data
@@ -17,7 +16,7 @@ public class OrderDto {
     private String description;
     private BigDecimal price;
     private String address;
-    private Long phone;
+    private String phone;
 
     public OrderDto(Order order) {
         this.id = order.getId();
