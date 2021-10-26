@@ -36,4 +36,14 @@ public class AbstractRepository<T, ID extends Serializable> {
         transaction.commit();
         session.close();
     }
+
+    public void delete(T obj) {
+        Session session = SessionFactoryUtil
+                .getSessionFactory()
+                .openSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(obj);
+        transaction.commit();
+        session.close();
+    }
 }

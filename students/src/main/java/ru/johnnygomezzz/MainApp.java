@@ -9,8 +9,13 @@ public class MainApp {
 
         Student student = new Student("Евлампий", 100500);
         studentService.saveOrUpdateStudent(student);
-
         System.out.println(studentService.findStudentById(student.getId()));
+
+        student.setMark(1155);
+        studentService.saveOrUpdateStudent(student);
+        System.out.println(studentService.findStudentById(student.getId()));
+
+        studentService.deleteOneStudent(student);
 
         //System.out.println(studentService.findAllStudents());
 
