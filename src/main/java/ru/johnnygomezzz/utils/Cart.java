@@ -1,13 +1,16 @@
 package ru.johnnygomezzz.utils;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
-import ru.johnnygomezzz.error_handling.ResourceNotFoundException;
+import org.springframework.web.context.WebApplicationContext;
 import ru.johnnygomezzz.models.OrderItem;
 import ru.johnnygomezzz.models.Product;
-import ru.johnnygomezzz.services.ProductService;
 
 import javax.annotation.PostConstruct;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,14 +18,34 @@ import java.util.List;
 
 @Data
 @Component
-public class Cart {
+@RequiredArgsConstructor
+@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class Cart implements Serializable {
+    private static final long serialVersionUID = 2906642554793891381L;
+
     private List<OrderItem> items;
-    private final ProductService productService;
     private BigDecimal sum;
 
     @PostConstruct
     public void init() {
         items = new ArrayList<>();
+    }
+
+    public void addToCart(Product product, Long id) {
+        for (OrderItem orderItem : items) {
+            if (orderItem.getProduct().getId().equals(id)) {
+                orderItem.incrementQuantity();
+                recalculate();
+                return;
+            }
+        }
+        items.add(new OrderItem(product));
+        recalculate();
+    }
+
+    public void deleteAll() {
+        items.clear();
+        recalculate();
     }
 
     public void deleteById(Long id) {
@@ -48,34 +71,11 @@ public class Cart {
         }
     }
 
-    public void deleteAll() {
-        items.clear();
-        recalculate();
-    }
-
-    public void addToCart(Long id) {
-        for (OrderItem orderItem : items) {
-            if (orderItem.getProduct().getId().equals(id)) {
-                orderItem.incrementQuantity();
-                recalculate();
-                return;
-            }
-        }
-
-        Product product = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product doesn't exists id: " + id + " (add to cart)"));
-        items.add(new OrderItem(product));
-        recalculate();
-    }
-
-    private void recalculate() {
+    public void recalculate() {
         sum = BigDecimal.ZERO;
         for (OrderItem oi : items) {
             sum = sum.add(oi.getPrice());
         }
-    }
-
-    public List<OrderItem> getItems() {
-        return Collections.unmodifiableList(items);
     }
 
     public int getTotalQuantity() {
@@ -84,5 +84,9 @@ public class Cart {
             totalQuantity += oi.getQuantity();
         }
         return totalQuantity;
+    }
+
+    public List<OrderItem> getItems() {
+        return Collections.unmodifiableList(items);
     }
 }

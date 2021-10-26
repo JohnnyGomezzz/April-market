@@ -36,10 +36,10 @@
                         <form class="align-middle" ng-submit="tryToAuth()">
                             <div class="input-group-prepend">
                                 <input id="navLoginField" class="form-control" ng-model="user.username" type="text"
-                                       aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+                                       aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;" placeholder="логин">
 
                                 <input id="navPasswordField" class="form-control" ng-model="user.password" type="password"
-                                       aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+                                       aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;" placeholder="пароль">
 
                                 <button id="navLoginSubmit" class="btn btn-outline-warning btn-sm"
                                         style="margin-left: 10px;" type="submit">Войти
@@ -53,7 +53,7 @@
                     </li>
                     <li class="nav-item" ng-show="isUserLoggedIn()">
                         <button class="btn btn-outline-secondary" ng-click="tryToLogout()">Выйти</button>
-                        <span style="margin-left: 10px;">Здравствуйте, {{username}}, приятных покупок!</span>
+                        <span style="margin-left: 10px;">Здравствуйте, {{userDto.username}}, приятных покупок!</span>
                     </li>
                 </ul>
             </div>

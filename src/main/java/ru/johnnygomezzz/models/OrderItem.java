@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,7 +15,9 @@ import java.util.List;
 @Entity
 @Table(name = "order_items")
 @NoArgsConstructor
-public class OrderItem {
+public class OrderItem implements Serializable{
+    private static final long serialVersionUID = 290691381L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

@@ -38,7 +38,6 @@ angular.module('app').controller('productsController', function ($scope, $http, 
             url: contextPath + '/api/v1/cart/add/' + productId,
             method: 'GET'
         }).then(function (response) {
-            $scope.showCart();
         });
     }
 
@@ -48,19 +47,6 @@ angular.module('app').controller('productsController', function ($scope, $http, 
             arr.push(i);
         }
         return arr;
-    }
-
-    $scope.showOrders = function () {
-        $http({
-            url: contextPath + '/api/v1/orders',
-            method: 'GET'
-        }).then(function (response) {
-            $scope.myOrders = response.data;
-        });
-    };
-
-    if ($scope.isUserLoggedIn()) {
-        $scope.showOrders();
     }
 
     $scope.loadPage(1);
