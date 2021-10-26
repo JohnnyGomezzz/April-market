@@ -15,4 +15,13 @@ public class Student {
 
     @Column(name = "mark")
     private int mark;
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", mark=" + mark +
+                '}';
+    }
 }

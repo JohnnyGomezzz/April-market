@@ -1,11 +1,7 @@
 BEGIN;
 
 DROP TABLE IF EXISTS students CASCADE;
-CREATE TABLE students (
-                        id bigserial PRIMARY KEY,
-                        name VARCHAR(50),
-                        mark VARCHAR(50)
-);
+CREATE TABLE students (id bigserial PRIMARY KEY, name VARCHAR(50), mark INT);
 
 INSERT INTO students (name, mark) VALUES
 ('Иван', 10),

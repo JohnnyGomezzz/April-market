@@ -3,13 +3,12 @@ package ru.johnnygomezzz;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import ru.johnnygomezzz.entity.Student;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Collectors;
-
-import ru.johnnygomezzz.entity.Student;
 
 public class MainApp {
     private static SessionFactory factory;
@@ -26,7 +25,7 @@ public class MainApp {
             prepareData();
             try (Session session = factory.getCurrentSession()) {
                 session.beginTransaction();
-                Student student = session.get(Student.class, 1L);
+                Student student = session.get(Student.class, 112L);
                 System.out.println(student);
                 session.getTransaction().commit();
             }
@@ -38,7 +37,7 @@ public class MainApp {
     public static void prepareData() {
         Session session = null;
         try {
-            String sql = Files.lines(Paths.get("db.sql")).collect(Collectors.joining(" "));
+            String sql = Files.lines(Paths.get("d:/_java/april-market/students/db.sql")).collect(Collectors.joining(" "));
             session = factory.getCurrentSession();
             session.beginTransaction();
             session.createNativeQuery(sql).executeUpdate();
