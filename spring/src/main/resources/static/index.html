@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+
+<h2>Список студентов</h2>
+
+<table class="table" id="studentsList">
+
+</table>
+
+<form action="#">
+    <input id="student_name" placeholder="Student name">
+    <input id="student_nickname" placeholder="Student nickname">
+    <input id="student_age" placeholder="Student age">
+    <button onclick="createStudent()">Create student</button>
+</form>
+
+<input id="search_field">
+<button onclick="searchByNickname()">Search by Nickname</button>
+<script>
+    function searchByNickname() {
+        var nickname = document.getElementById("search_field").value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var student = JSON.parse(this.responseText);
+                var html = '<tr>\n' +
+                    '        <th>Student id</th>\n' +
+                    '        <th>Student name</th>\n' +
+                    '        <th>Student nickname</th>\n' +
+                    '        <th>Student age</th>\n' +
+                    '        <th>Actions</th>\n' +
+                    '    </tr>';
+                html = html + '<tr><td>' + student.id + '</td>\n' +
+                    '        <td>' + student.name + '</td>\n' +
+                    '        <td>' + student.nickname + '</td>\n' +
+                    '        <td>' + student.age + '</td>\n' +
+                    '        <td><button class="btn btn-sm btn-link" onclick="deleteStudent(' + student.id + ')">Delete</button></td></tr>';
+                document.getElementById("studentsList").innerHTML = html;
+            }
+        };
+        xhttp.open("GET", "http://localhost:8189/students/findByNickname?nickname=" + nickname, true);
+        xhttp.send();
+    }
+
+    function deleteStudent(studentId) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("DELETE", "http://localhost:8189/students/delete/" + studentId, true);
+        xhttp.send();
+
+        loadStudents();
+    }
+
+    function createStudent() {
+        var studentName = document.getElementById("student_name").value;
+        var studentNickName = document.getElementById("student_nickname").value;
+        var studentAge = document.getElementById("student_age").value;
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("POST", "http://localhost:8189/students/save");
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+        xmlhttp.send(JSON.stringify({name: studentName, nickname: studentNickName, age: studentAge}));
+
+        loadStudents();
+    }
+
+    function loadStudents() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var students = JSON.parse(this.responseText);
+                var html = '<tr>\n' +
+                    '        <th>Student id</th>\n' +
+                    '        <th>Student name</th>\n' +
+                    '        <th>Student nickname</th>\n' +
+                    '        <th>Student age</th>\n' +
+                    '        <th>Actions</th>\n' +
+                    '    </tr>';
+                for (var i = 0; i < students.length; i++) {
+                    var student = students[i];
+                    console.log(student);
+                    html = html + '<tr><td>' + student.id + '</td>\n' +
+                        '        <td>' + student.name + '</td>\n' +
+                        '        <td>' + student.nickname + '</td>\n' +
+                        '        <td>' + student.age + '</td>\n' +
+                        '        <td><button onclick="deleteStudent(' + student.id + ')">Delete</button></td></tr>';
+
+                }
+                document.getElementById("studentsList").innerHTML = html;
+            }
+        };
+        xhttp.open("GET", "http://localhost:8189/students/findAll", true);
+        xhttp.send();
+    }
+
+    loadStudents();
+</script>
+
+</body>
+</html>

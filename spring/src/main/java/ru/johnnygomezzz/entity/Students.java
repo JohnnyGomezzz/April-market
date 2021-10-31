@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "students")
 @Data
 @NoArgsConstructor
-public class Student {
+public class Students {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +17,9 @@ public class Student {
 
     @Column
     private String name;
+
+    @Column
+    private String nickname;
 
     @Column
     private int age;
